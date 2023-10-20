@@ -1,0 +1,400 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\clearpage
+\section{Espaços de Probabilidade}
+
+Na seção \ref{espaços de probabilidade uniforme}, definimos um espaço de probabilidade uniforme como o triplete $(\Omega,\mathcal{F},\Pb)$, onde $\Omega$ é um conjunto finito, $\mathcal{F}=\mathcal{P}(\Omega)$ e $\Pb:\mathcal{F}\to[0,1]$ satisfaz as propriedades \eqref{P_prop1} - \eqref{P_prop3}. Agora, vamos generalizar o conceito de espaço de probabilidade para permitir o seguinte:
+\begin{itemize}
+    \item Espaços amostrais arbitrários $\Omega$.
+    \item Espaços de eventos que refletem informações parciais - não é necessário, e às vezes nem é possível, que $\mathcal{F} = \mathcal{P}(\Omega)$.
+    \item Probabilidade definida em um espaço de eventos geral.
+\end{itemize}
+
+\subsection{Espaço amostral e espaço de eventos}
+
+\begin{definition}
+    Um {\it espaço amostral} $\Omega$ é o conjunto de todos os possíveis resultados de um processo aleatório (ou experimento), ou seja, um processo cujo resultado não pode ser determinado antecipadamente. Pode ser qualquer conjunto.
+\end{definition}
+
+\begin{example}
+Qual é o espaço amostral correspondente aos seguintes processos?
+\begin{itemize}
+    \item O lançamento de uma moeda: $\Omega=\{Cara, Coroa\}$.
+    \item O lançamento de um dado: $\Omega=\{1,2,3,4,5,6\}$.
+    \item O número de e-mails enviados por um endereço @google.com em um ano: $\Omega=\N$.
+    \item O peso de uma maçã: $\Omega=[0,1]$.
+    \item A posição de um dardo lançado em um tabuleiro quadrado de tamanho 1: $\Omega=[0,1]\times[0,1]$.
+    \item O preço das ações do Twitter em um ano: $\Omega=\R$.
+    \item As flutuações de temperatura em Coventry em 2023: neste caso, o espaço amostral é uma função completa, mapeando o tempo $t$ para um número em $[-50,50]$.
+    \item O estado do mundo em um ano! Neste caso, o espaço amostral não pode ser descrito, mas existe como conceito e pode ser parcialmente observado por meio de sua interação com processos que podem ser medidos (por exemplo, afetará as taxas de juros ou o número de internações hospitalares em um determinado dia no futuro, a frequência de eventos climáticos extremos, etc).
+\end{itemize}
+\end{example}
+
+\begin{remark}
+   Embora $\Omega$ possa ser qualquer conjunto em teoria, em ST120, consideraremos apenas os casos em que a cardinalidade de $\Omega$ é igual a $n$, para algum $n\in\N$ (espaço amostral finito), $|\Omega|=|\N|$ (espaço amostral contável) ou $|\Omega|=|\R|$ (espaço amostral não contável ou contínuo - para incluir intervalos ou produtos cartesianos de $\R$ e seus intervalos).
+\end{remark}
+
+Como já vimos no caso do espaço de probabilidade uniforme, eventos são subconjuntos de $\Omega$. Mais geralmente, um evento é um subconjunto de $\Omega$ quando é possível dizer se algum resultado dado pertence ao conjunto (ou seja, 'o evento ocorreu') ou não, dadas as informações que temos sobre o resultado - observe que nem sempre temos informações completas sobre o resultado e o espaço de eventos reflete as informações que temos. O exemplo a seguir demonstra exatamente essa propriedade do espaço de eventos.
+
+\begin{example}
+\label{ex: eventos e informações}
+Suponha que eu lance um dado ($\Omega = \{1,2,3,4,5,6\}$) e relato as seguintes informações a dois alunos: eu digo a James se o resultado é um número par ou não, e digo a Lily o quociente de $(\omega-1)$ dividido por dois (ou seja, relato $0$ para $\{1,2\}$, $1$ para $\{3,4\}$ e $2$ para $\{5,6\}$). Quais são os espaços de eventos correspondentes?
+
+James só sabe se o resultado é ímpar ou par, então ele só pode dizer se pertence a $\{1,3,5\}$ ou $\{2,4,6\}$. Já que, pela construção de $\Omega$, todos os resultados estão em $\Omega$, ele também pode dizer que o resultado está em $\Omega$ e não em $\emptyset$ - observe que tanto $\emptyset$ quanto $\Omega$ são subconjuntos de $\Omega$. Portanto, a coleção de eventos (ou seja, o espaço de eventos) correspondente às informações que James possui é 
+\[
+\mathcal{F}_J = \left\{ \emptyset, \{1,3,5\}, \{2,4,6\}, \Omega \right\}. 
+\]
+(Pense sobre o motivo pelo qual James não pode afirmar com certeza se o resultado está em outro subconjunto).
+
+Com base nas informações fornecidas a ela, Lily poderá dizer se o resultado está em $\{1,2\}, \{3,4\}$ ou $\{5,6\}$. Ela também pode dizer se o resultado estará em $\{1,2,3,4\}, \{1,2,5,6\}$ ou $\{3,4,5,6\}$ (por exemplo, $\{1,2,3,4\}$ corresponde ao número informado a Lily sendo $0$ ou $1$) e ela pode dizer, por padrão, que o resultado estará em $\Omega$ e não em $\emptyset$ (o $\emptyset$ é definido como o complemento de $\Omega$ em relação a $\Omega$, então todos os pontos em $\Omega$ que não estão em $\Omega$, que é, é claro, nenhum! É mais fácil pensar nisso como o evento em que o resultado não está no espaço amostral do que no evento em que nada acontece). Portanto, o espaço de eventos correspondente às informações fornecidas a Lily é
+\[
+\mathcal{F}_L = \left\{ \emptyset, \{1,2\}, \{3,4\}, \{5,6\},\{1,2,3,4\},\{1,2,5,6\},\{3,4,5,6\},\Omega \right\}. 
+\]
+Observe que há redundância na forma como as informações são codificadas no espaço de eventos - a informação corresponde a saber simultaneamente a resposta para 'o evento ocorreu ou não' para todos os eventos no espaço de eventos, mas saber, por exemplo, que tanto $\{1,2\}$ quanto $\{1,2,3,4\}$ aconteceram nos permite deduzir a resposta para tudo o mais. Que suposição estamos fazendo que nos permite dizer isso?
+\end{example}
+
+Se $A$ e $B$ são eventos, de acordo com nossa intuição, esperamos que o seguinte também sejam eventos:
+\begin{itemize}[noitemsep]
+\item $A \cap B$ (Ambos $A$ e $B$ aconteceram).
+\item $A \cup B$ (Ou $A$ ou $B$ aconteceu).
+\item $A^c$ ($A$ não aconteceu).
+\item $A \setminus B=A \cap B^c$ ($A$ aconteceu, mas $B$ não aconteceu).
+\end{itemize}
+
+\begin{notation*}
+Quando escrevemos $A^c$, implicitamente estamos considerando o complemento em relação a um espaço amostral dado $ \Omega $.
+Uma notação mais explícita é escrever $ \Omega \setminus A $.
+\end{notation*}
+
+Portanto, gostaríamos que o espaço de eventos fosse fechado sob as operações de união, interseção, complemento e diferença (quando dizemos que um conjunto é fechado sob uma operação, queremos dizer que, se aplicarmos a operação a quaisquer elementos do conjunto, o resultado ainda estará no conjunto). Será que isso é suficiente? Vamos considerar o seguinte
+\begin{example}
+Considere o caso em que $\Omega=\N$ (ou seja, qualquer número natural pode ser o resultado do processo aleatório que consideramos) e suponha que temos informações suficientes para dizer se o evento $\{n\}$ aconteceu ou não, para qualquer $n\in\N$. De acordo com nossa intuição, se podemos dizer se qualquer resultado $\omega$ pertence a qualquer conjunto $\{n\}$ ou não (o que você pode dizer para $\omega$ quando $\omega\in\{n\}$?), então também deveríamos ser capazes de dizer se $\omega\in\{2n|n\in\N\}$ ou não, ou seja, deveríamos ser capazes de dizer se $\omega$ é par. Portanto, esperamos
+\[
+\bigcup_{n=0}^\infty \{2n\} = \{2n|n\in\N\}
+\]
+estar no espaço de eventos. Agora estamos fazendo a suposição de que o espaço de eventos não é apenas fechado para uniões, mas também para uniões de conjuntos contáveis (ou seja, infinitos, mas com cardinalidade igual a $|\N|$).
+\end{example}
+
+Seguindo nossa intuição, definimos o espaço de eventos da seguinte forma
+
+\begin{definition} \label{def: espaço de eventos}
+Seja $\Omega$ o espaço amostral e $\cF$ uma coleção de subconjuntos de $\Omega$. $\cF$ é um \emph{espaço de eventos} (também chamado de $\sigma$-\emph{álgebra}) se satisfaz as seguintes condições:
+\begin{enumerate}
+[$ (i) $]
+\item $\Omega\in\cF$.
+\item se $A \subseteq \Omega$, $A \in \cF \Rightarrow A^c \in \cF$ ($\cF$ é fechado sob complementos).
+\item se $\{A_n: n \in \N\}$ é tal que $A_n \in \cF$ $\forall \, n$, então
+\begin{equation}
+\bigcup_{n=1}^{\infty} A_n \in \cF \,.
+\end{equation}
+($\cF$ é fechado sob uniões contáveis.)
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+Seja $\Omega$ um conjunto não vazio e $\cF=\mathcal{P}(\Omega)$, ou seja, o conjunto de todos os subconjuntos de $\Omega$. Então, $\cF$ é um espaço de eventos em $\Omega$. 
+\end{exercise}
+
+\begin{solution}
+Precisamos mostrar que $\cF=\mathcal{P}(\Omega)$ satisfaz as três propriedades da \ref{def: espaço de eventos}.
+\begin{enumerate}
+[$ (i) $]
+\item $\Omega \subseteq \Omega$ e, portanto, $\Omega\in\mathcal{P}(\Omega) = \cF$.
+\item Suponha que $A \subseteq \Omega$, $A \in \cF$. Então, $A^c = \Omega \setminus A \subseteq \Omega$. Assim, $A^c \in \mathcal{P}(\Omega) =\cF$.
+\item Suponha que $A_n$ são tais que $A_n \subseteq \Omega$, $\forall n\in\N$. Então
+\begin{equation}
+\bigcup_{n=1}^{\infty}A_n \subseteq \bigcup_{n=1}^{\infty} \Omega = \Omega
+\Rightarrow \bigcup_{n=1}^{\infty}A_n \in \mathcal{P}(\Omega) =\cF \,.
+\end{equation}
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+
+Seja $A \subseteq \Omega$ um subconjunto não vazio de $\Omega$. Então
+\begin{equation}
+\{ \emptyset, A, A^c, \Omega\}
+\end{equation}
+é um espaço de eventos em $\Omega$.
+\end{exercise}
+
+\begin{solution}
+Precisamos mostrar que $\{ \emptyset, A, A^c, \Omega\}$ satisfaz as três propriedades da \ref{def: espaço de eventos}.
+\begin{enumerate}
+[$ (i) $]
+\item $\Omega\in\cF$ por definição.
+\item Verificamos que a propriedade é satisfeita para cada evento:  $\emptyset^c=\Omega \in \cF$, $A^c \in \cF$, $(A^c)^c=A \in \cF$,
+$\Omega^c=\emptyset \in \cF$.
+\item Seja $\{B_n:n\in \N\}$ uma sequência de subconjuntos de $\Omega$ tal que $B_n \in \cF$ $\forall \, n$. Vamos considerar todas as possibilidades:
+\begin{itemize}
+\item Se todos os conjuntos $B_n$ forem idênticos e iguais a $B$ (ou seja, $B\in\cF$), ou existe uma subsequência $B_{n_k}$ de conjuntos que são idênticos a $B$ e o restante é todo $\emptyset$, então
+$\bigcup_{n=1}^\infty B_n = B\in \cF$.
+\item Se pelo menos um dos conjuntos for o espaço amostral (por exemplo, $B_i = \Omega$, para algum $i\in\N$), então
+\[
+\bigcup_{n=1}^\infty B_n = \Omega
+\]
+e, portanto, $\bigcup_{n=1}^\infty B_n \in \cF$. 
+\item Se houver pelo menos um conjunto $A$ e um conjunto $A^c$, então
+\[ \Omega = A\cup A^c \subseteq \bigcup_{n=1}^\infty B_n \subseteq \Omega,\]
+onde o último relacionamento segue do fato de que todos os eventos são subconjuntos de $\Omega$. Portanto, $\bigcup_{n=1}^\infty B_n = \Omega$ e, assim, $\bigcup_{n=1}^\infty B_n\in \cF$.
+\end{itemize}
+\end{enumerate}
+\end{solution}
+
+\begin{proposition} \label{prop_sigma_prop}
+Seja $\cF$ um espaço de eventos em $\Omega$. Então
+\begin{enumerate}
+\item $\cF$ é fechado sob uniões finitas.
+\item $\cF$ é fechado sob interseções finitas.
+\item $\cF$ é fechado sob interseções contáveis.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+~
+\begin{enumerate}
+\item Sejam $A_1, \dots, A_n \in \cF$. Defina $A_j = \emptyset\in\cF \,\, \forall \,\, j>n$, portanto $A_n \in \cF \, \forall \, n\geq 1$. Como os conjuntos vazios não contribuirão para a união, podemos mostrar que
+\[
+\bigcup_{j=1}^{n} A_j = \bigcup_{j=1}^\infty A_j\in\cF,
+\]
+pois $\cF$ é fechado sob uniões contáveis.
+\item Sejam $A_1, \dots, A_n \in \cF$. Queremos mostrar que $\bigcap_{j=1}^{n}A_j \in \cF$. Pela lei de De Morgan (mostrando que cada elemento de um conjunto precisa pertencer ao outro conjunto também)
+\[
+\bigcap_{j=1}^{n}A_j = \left(\bigcup_{j=1}^{n}A_j^c\right)^c.
+\]
+Como o espaço de eventos $\cF$ é fechado sob complementos, $A_j^c\in \cF$, para todo $j=1,\dots,n$. Como é fechado sob uniões finitas (afirmação 1 da proposição, mostrada acima),
+\[
+\bigcup_{j=1}^{n}A_j^c \ \in \cF
+\]
+Ao tomar o complemento mais uma vez, segue que $\bigcap_{j=1}^{n}A_j\in\cF$.
+\item A prova é semelhante à da afirmação 2 acima, observando que a lei de De Morgan também vale para uniões e interseções contáveis. Ou seja, podemos escrever
+\[
+\bigcap_{j=1}^{\infty}A_j = \left(\bigcup_{j=1}^{\infty}A_j^c\right)^c.
+\]
+\end{enumerate}
+\end{proof}
+
+\subsection{Probabilidade}
+
+O último elemento da tripla do espaço de probabilidade é a medida de probabilidade $\Pb$.
+Na definição \ref{def:espaço de probabilidade uniforme} do espaço de probabilidade uniforme, definimos a medida de probabilidade como uma função do espaço de eventos para $[0,1]$, de modo que a probabilidade do evento $\Omega$ (`o resultado está no espaço amostral') é $1$ e para dois eventos disjuntos $A,B$, $\Pb(A\cup B)=\Pb(A)+\Pb(B)$ -- a última propriedade pode ser generalizada por indução para a aditividade finita: se $A_1,\dots,A_n$ são eventos disjuntos, então
+\[
+\Pb(\bigcup_{i=1}^n A_k) = \sum_{k=1}^n \Pb(A_k).
+\]
+Isso é suficiente para espaços de probabilidade infinitos? Vamos considerar o seguinte
+\begin{example}
+Seja $\Omega=\N^*=\{1,2,\dots\}$ o conjunto dos números naturais positivos e $\cF=\mathcal{P}(\Omega)$. Suponha que $\Pb(\{n\}) = \frac{1}{2^n}$, para todo $n\geq 1$. O que esperaríamos que o evento $\{ 2n|n\geq 1\}$ (`o resultado é um número par') seja?
+
+Intuitivamente, somaríamos as probabilidades correspondentes ao resultado ser par, ou seja,
+\[
+\Pb(\{2n|n\geq 1\}) = \sum_{n=1}^\infty \Pb(\{2n\}) = \sum_{n=1}^\infty \frac{1}{2^{2n}} = \sum_{n=1}^\infty \frac{1}{4^n} = \frac{1}{3}.
+\]
+
+(Note que o evento $\{n\}$ corresponde a `o resultado é $n$'). O cálculo acima não pode ser justificado, a menos que estendamos a propriedade da aditividade finita para valer também para uniões contáveis de eventos disjuntos. De fato, é isso que fazemos!
+\end{example}
+
+\begin{definition}
+[Medida de Probabilidade]
+\label{def:medidadeprob}
+Dado um espaço amostral $ \Omega $ e um espaço de eventos $ \cF $, uma função $ \Pb:\cF\to\R $ é chamada de \emph{medida de probabilidade} se satisfaz
+        \begin{enumerate}[$ (i) $]
+	    \item $ \Pb(B) \in [0,1] $ para todo $ B \in \mathcal{F} $;
+            \item $\Pb(\Omega)=1$;
+            \item (Aditividade Contável) Para todo $A_n\in\cF,\ n\geq 1$ eventos disjuntos (ou seja, para todos $m,n\geq$ tais que $m\neq n$, $A_m\cap A_n = \emptyset$, 
+            \begin{equation}
+            \label{property: aditividadecountable}
+                \Pb\left(\bigcup_{n=1}^\infty A_n \right) = \sum_{n=1}^\infty \Pb(A_n).
+            \end{equation}
+        \end{enumerate}
+\end{definition}
+
+Nós agora apresentamos a definição de um espaço de probabilidade abstrato.
+\begin{definition}
+\label{def: probability space}
+Um \emph{espaço de probabilidade} é definido como o triplo $(\Omega, \mathcal{F}, \Pb)$, onde
+    \begin{itemize}
+        \item $\Omega$ (o \emph{espaço amostral}) é o conjunto de todos os possíveis resultados do experimento (sempre assumimos que não é vazio);
+        \item $\mathcal{F}$ é um espaço de eventos de subconjuntos de $\Omega$. 
+        \item $\Pb$ é uma medida de probabilidade em $ \cF $.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+\label{prop: basic properties of probability}
+Seja $(\Omega, \mathcal{F}, \Pb)$ um espaço de probabilidade. Então, $\Pb$ possui as seguintes propriedades
+\begin{enumerate}
+    \item Se $A, B \in \mathcal{F}$ tal que $A \subseteq B$, então 
+    \[ \Pb(B - A) = \Pb(B) - \Pb(A).\]
+    Observe que $B - A = B \cap A^c$ e deve ser interpretado como 'todos os elementos de $B$ que não estão em $A'$.
+    \item Para todo $A \in \mathcal{F}$,
+    \[ \Pb(A^c) = 1 - \Pb(A).\]
+    \item $\Pb(\emptyset) = 0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+~
+    \begin{enumerate}
+        \item Escrevemos $B$ como a união do conjunto com todos os elementos em $B$ que não estão em $A$ e aqueles que estão, ou seja, $B = (B - A) \cup A$. Pela aditividade finita,
+        \[ \Pb(B) = \Pb((B - A) \cup A) = \Pb(B - A) + \Pb(A),\]
+        o que prova a afirmação.
+        \item Usando a propriedade acima,
+        \[\Pb(A^c) = \Pb(\Omega - A) = \Pb(\Omega) - \Pb(A) = 1 - \Pb(A).
+        \]
+    \item $\Pb(\emptyset) = \Pb(\Omega^c) = 1 - \Pb(\Omega) = 1 - 1 = 0.$
+    \end{enumerate}
+\end{proof}
+
+Podemos usar a aditividade contável para calcular a probabilidade de uma união de eventos disjuntos. Como podemos calcular a probabilidade de qualquer união de eventos? A seguinte proposição nos fornece uma maneira de fazer isso.
+
+\begin{proposition}[Fórmula de Inclusão-Exclusão]
+Seja $(\Omega, \mathcal{F}, \Pb)$ um espaço de probabilidade. Então, para qualquer coleção finita $A_1, \dots, A_n$ de eventos em $\mathcal{F}$, temos
+\begin{equation}
+\label{eq: inclusion-exclusion}
+\Pb\left( \bigcup_{k=1}^{n} A_k \right) = \sum_{k=1}^{n}(-1)^{k-1} 
+\sum_{1 \leq i_1 < \dots < i_k \leq n} \Pb(A_{i_1} \cap \dots \cap A_{i_k}) \,.
+\end{equation}
+\end{proposition}
+
+\begin{remark}
+A fórmula \ref{eq: inclusion-exclusion} acima usa uma notação concisa e não é imediatamente fácil de interpretar. Para entendê-la melhor, vamos considerar alguns casos específicos.
+\begin{itemize}
+
+\item
+$n=2$
+\begin{align}
+\Pb\left(\bigcup_{k=1}^{2} A_k\right) &= \sum_{k=1}^{2} (-1)^{k-1} \sum_{1 \leq i_1 < \dots < i_k \leq 2} \Pb(A_1 \cap \dots \cap A_k) \\
+&= \sum_{1 \leq i \leq 2} \Pb(A_i) - \sum_{1 \leq i_1 < i_2 \leq 2} \Pb(A_{i_1} \cap A_{i_2}) \\
+&= \Pb(A_1) + \Pb(A_2) - \Pb(A_1 \cap A_2) \,.
+\end{align}
+\item
+$n=3$
+\begin{align}
+\Pb\left(\bigcup_{k=1}^{3} A_k\right) &= \sum_{k=1}^{3} (-1)^{k-1} \sum_{1 \leq i_1 < \dots < i_k \leq 3} \Pb(A_1 \cap \dots \cap A_k) \\
+&= \sum_{1 \leq i \leq 3} \Pb(A_i) - \sum_{1 \leq i_1 < i_2 \leq 3} \Pb(A_{i_1} \cap A_{i_2}) \\
+&\hspace{0.4cm} + \sum_{1 \leq i_1 < i_2 < i_3 \leq 3} \Pb(A_{i_1} \cap A_{i_2} \cap A_{i_3})\\
+&= \Pb(A_1) + \Pb(A_2) + \Pb(A_3) - \Pb(A_1 \cap A_2) - \Pb(A_1 \cap A_3) \\
+&\hspace{0.4cm} - \Pb(A_2 \cap A_3) + \Pb(A_1 \cap A_2 \cap A_3)\,.
+\end{align}
+Portanto, a soma $\sum_{1 \leq i_1 < \dots < i_k \leq 2}$ deve ser interpretada como a soma de todos os $k$-uplas $(i_1, \dots, i_k)$ de números $\{1, \dots, n\}$ sem repetição (as desigualdades são estritas). Como vimos na seção \ref{sec: how to count}, existem $\binom{n}{k}$ dessas $k$-uplas, portanto a soma terá $\binom{n}{k}$ parcelas.
+\end{itemize}
+\end{remark}
+
+\begin{proof}
+Vamos provar o resultado apenas para $n=2$ (a prova do passo de indução no caso geral é semelhante, mas mais confusa!). Escrevemos
+\[
+A_1 \cup A_2 = (A_1-B) \cup B \cup (A_2-B),
+\]
+onde $B=A_1 \cap A_2$. Os conjuntos $A_1-B$, $B$ e $A_2-B$ são todos disjuntos, então podemos escrever
+\[
+\Pb(A_1 \cup A_2) = \Pb\left( (A_1-B) \cup B \cup (A_2-B) \right) = \Pb(A_1-B) + \Pb(B) + \Pb(A_2-B)
+\]
+usando a aditividade finita. Sabemos, pela proposição \ref{prop: basic properties of probability}, que $\Pb(A_1-B) = \Pb(A_1) - \Pb(B)$ e, da mesma forma, $\Pb(A_2-B) = \Pb(A_2) - \Pb(B)$. Substituindo esses valores na fórmula acima, obtemos
+\[
+\Pb(A_1 \cup A_2) = (\Pb(A_1) - \Pb(B)) + \Pb(B) + (\Pb(A_2) - \Pb(B)) = \Pb(A_1) + \Pb(A_2) - \Pb(B),
+\]
+o que comprova a alegação.
+\end{proof}
+
+\begin{proposition} \label{prop_prob}
+Seja $(\Omega, \cF, \Pb)$ um espaço de probabilidade. Se $A, B \in \cF$ e $A \subseteq B$, então
+\begin{equation}
+\Pb(A) \leq \Pb(B) \,.
+\end{equation}
+\end{proposition}
+
+\begin{proof}  
+Uma vez que $A \subseteq B$, segue que $\Pb(B-A) = \Pb(B) - \Pb(A)$ ou, equivalentemente, $\Pb(A) = \Pb(B) - \Pb(B-A) \leq \Pb(B)$, onde a desigualdade decorre do fato de que as probabilidades são sempre não negativas.
+\end{proof}
+
+\begin{proposition}
+[Desigualdade de Boole]
+Seja $(\Omega, \cF, \Pb)$ um espaço de probabilidade. Se $A_1, \dots, A_n \in \cF$, então 
+\begin{equation}
+\Pb\left( \bigcup_{i=1}^{n} A_i \right) \leq \sum_{i=1}^{n} \Pb(A_i) \quad {\rm (*)}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Procedemos por indução. Para $n=2$, observe que 
+\begin{equation}
+\Pb(A_1 \cup A_2) = \Pb(A_1) + \Pb(A_2) - \underbrace{\Pb(A_1 \cap A_2)}_{\geq 0} \leq \Pb(A_1) + \Pb(A_2) \,.
+\end{equation}
+Portanto, (*) vale para $n=2$. Suponha agora que (*) vale $\forall \, j \leq n$, então precisamos provar que vale para $n+1$ eventos. Seja $A_1, \dots, A_{n+1} \in \cF$, então, argumentando como acima, temos
+\begin{align}
+\Pb\left(\bigcup_{j=1}^{n+1} A_j\right) &= \Pb\left(\left(\bigcup_{j=1}^{n} A_j\right) \cup A_{n+1}\right) \\
+&= \Pb\left(\bigcup_{j=1}^{n} A_j\right) + \Pb\left(A_{n+1}\right) - \Pb\left(\left(\bigcup_{j=1}^{n} A_j\right) \cap A_{n+1}\right)\\
+&\leq \Pb\left(\bigcup_{j=1}^{n} A_j\right) + \Pb(A_{n+1}) \\
+&\leq \sum_{j=1}^{n} \Pb(A_j) + \Pb(A_{n+1}) = \sum_{j=1}^{n+1} \Pb(A_j) \,.
+\qedhere
+\end{align}
+\end{proof}
+
+\subsection*{Revisão de espaços de probabilidade}
+
+$ \Omega $ -- \emph{espaço amostral}: elementos $ \omega\in\Omega $ são resultados, $ \Omega $ é um conjunto não vazio.
+
+$ \cF $ -- \emph{espaço de eventos}: elementos $ A \in \Omega $ são eventos ($ A \subseteq \Omega $)
+
+Deve satisfazer três condições:
+\begin{itemize}
+\item
+$\cF \ne \emptyset$
+\item
+$ A^c \in \cF $ para todo $ A \in \cF $
+\item
+$ (\cup_{n=1}^\infty A_n) \in \cF $ para toda sequência de eventos $ A_1,A_2,A_3,\dots $
+\end{itemize}
+
+Consequências dessas condições:
+\begin{itemize}
+\item
+$ \Omega \in \cF $ (de fato, tome $ A \in \cF $, $ A \cup A^c = \Omega $)
+\item
+$ \emptyset \in \cF $ (de fato, $ \Omega^c = \emptyset $)
+\item
+$ (\cap_{n=1}^\infty A_n) \in \cF $
+para cada sequência de eventos $ A_1, A_2, A_3, \dots $
+\\
+(de fato, $ \cap_{n=1}^\infty A_n = (\cup_{n=1}^\infty A_n^c)^c $)
+\end{itemize}
+
+$ \Pb $
+--
+\emph{medida de probabilidade}: $ \Pb:\cF \to \R $.
+
+Deve satisfazer três condições:
+\begin{itemize}
+\item
+$ \Pb(A) \geq 0 $ para todo $ A \in \cF $
+\item
+$ \Pb(\Omega)=1 $
+\item
+$ \Pb $ é aditiva contável:
+$ \Pb(\cup_{n=1}^\infty A_n) = \sum_{n=1}^\infty \Pb(A_n) $
+\\
+para cada sequência de eventos \emph{disjuntos} $ A_1, A_2, A_3, \dots $
+\end{itemize}
+
+O triplo $ (\Omega,\cF,\Pb) $ é chamado de \emph{espaço de probabilidade}.
+
+\begin{example}
+[Espaços de probabilidade uniformes]
+$ \Omega $ é um conjunto finito,
+$ \cF = \cP(\Omega) $,
+$ \Pb(A) = \frac{|A|}{|\Omega|} $.
+\end{example}
+
+\begin{example}
+Não existe um espaço de probabilidade para modelar o experimento "escolher um número inteiro aleatoriamente".
+Por mais que gostaríamos de dizer que um número inteiro $ X $ escolhido aleatoriamente será par com probabilidade $ \frac{1}{2} $ e o último dígito em sua representação decimal será $ 7 $ com probabilidade $ \frac{1}{10} $, não existe um espaço de probabilidade que possa modelar isso.
+Mais precisamente, para $ \Omega = \Z $, $ \cF = \Pb(\Z) $, não existe uma medida de probabilidade $ \Pb:\cF\to \R $ tal que $ \Pb(\{j\})=\Pb(\{k\}) $ para todos $ j, k \in \Z $.
+De fato,
+se $ \Pb(\{j\})>0 $, então $ \Pb(\Z)=\sum{x\in\Z} \Pb(\{x\}) = +\infty $,
+e
+se $ \Pb(\{j\})=0 $, então $ \Pb(\Z)=\sum{x\in\Z} \Pb(\{x\}) = 0 $, e em ambos os casos $ \Pb $ viola os requisitos para ser uma medida de probabilidade, ou seja, $ \Pb(\Z)=1 $.
+\end{example}

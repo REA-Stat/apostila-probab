@@ -1,0 +1,636 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\subsection{Função de uma variável aleatória}
+
+\begin{proposition}
+\label{prop:lus}
+Seja $ X $ uma variável aleatória discreta e $ g:\R \to \R $ uma função qualquer.
+Então
+\[
+\E[g(X)] = \sum_{x \in D_X} g(x) \cdot \Pb(X=x),
+\]
+se esta soma convergir absolutamente, e $ \E[g(X)] $ é indefinida se não convergir.
+Na soma, $ D_X $ denota o suporte discreto de $ X $.
+\end{proposition}
+
+\begin{example}
+Suponha que $ p_X(x)=\frac{1}{3} $ para $ x=1,2,3 $.
+Vamos calcular $ \E[(X-2)^2] $ de duas maneiras.
+Para a função $ g(x)=(x-2)^2 $, queremos calcular $ \E[g(X)] $.
+
+A primeira maneira é a seguinte.
+Defina a variável aleatória $ Z = g(X) = (X-2)^2 $ e calcule $ \E[Z] $ a partir da definição.
+Começamos calculando $ p_Z(0) = \Pb(X \in \{2\}) = \frac{1}{3} $ e $ p_Z(1) = \Pb(X \in \{1,3\}) = \frac{2}{3} $, obtendo a tabela
+\[
+\begin{array}{c|c}
+z & p_Z(z) \\
+\hline
+0 & \frac{1}{3}
+\\
+1 & \frac{2}{3}
+\end{array}
+\]
+e, finalmente, $ \E[Z] = 0 \cdot \frac{1}{3} + 1 \cdot \frac{2}{3} = \frac{2}{3} $.
+Para a segunda maneira, basta escrever
+\[
+\begin{array}{c|c|c}
+x & g(x) & p_X(x) \\
+\hline
+1 & 1 & \frac{1}{3}
+\\
+2 & 0 & \frac{1}{3}
+\\
+3 & 1 & \frac{1}{3}
+\end{array}
+\]
+e calcular $ \E[g(X)] = 1 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} = \frac{2}{3} $.
+\end{example}
+
+\begin{example}
+\index{distribuição!de Poisson}
+Se $X\sim\Poisson(\lambda)$, então
+\begin{align}
+\E [X^2]
+&
+=
+\sum_{n=0}^\infty n^2 \frac{\lambda^n e^{-\lambda}}{n!}
+=
+\sum_{n=1}^\infty n \frac{\lambda^n e^{-\lambda}}{(n-1)!}
+\\
+&
+=
+\sum_{n=1}^\infty \frac{\lambda^n e^{-\lambda}}{(n-1)!}
++
+\sum_{n=1}^\infty (n-1) \frac{\lambda^n e^{-\lambda}}{(n-1)!}
+\\
+&
+=
+\sum_{n=1}^\infty \frac{\lambda^n e^{-\lambda}}{(n-1)!}
++
+\sum_{n=2}^\infty \frac{\lambda^n e^{-\lambda}}{(n-2)!}
+\\
+&
+=
+\lambda e^{-\lambda}
+\sum_{n=1}^\infty \frac{\lambda^{n-1}}{(n-1)!}
++
+\lambda^2 e^{-\lambda}
+\sum_{n=2}^\infty \frac{\lambda^{n-2}}{(n-2)!}
+\\
+&
+=
+\lambda e^{-\lambda}
+\sum_{k=0}^\infty \frac{\lambda^{k}}{k!}
++
+\lambda^2 e^{-\lambda}
+\sum_{m=0}^\infty \frac{\lambda^{m}}{m!}
+\\
+&
+=
+\lambda+\lambda^2
+.
+\qedhere
+\end{align}
+Embora tenha havido muita computação algébrica envolvida, a alternativa seria pior: definir $ Z = X^2 $, descrever o suporte discreto de $ Z $, encontrar uma expressão para $ p_Z(z) $, escrever $ \E[Z]=\sum_z z \cdot p_Z(z) $ e, em seguida, tentar avaliar a soma.
+\end{example}
+
+\begin{example}
+Suponha que $X\sim\Geom(p)$.
+Como antes, calcularemos
+\[
+\E [X^2] = \sum_{n=1}^{\infty} n^2(1-p)^{n-1}p
+\]
+por meio da diferenciação de duas séries de potência.
+Para fazer isso, escrevemos $ x=1-p $ e desenvolvemos da seguinte maneira:
+\begin{align}
+\E [X^2]
+&
+=
+\sum_{n=1}^{\infty} n^2 \cdot p \cdot x^{n-1}
+\\
+&
+=
+p
+\sum_{n=1}^{\infty} n \cdot x^{n-1}
++
+p \sum_{n=1}^{\infty} n \cdot (n-1) \cdot x^{n-1}
+\\
+&
+=
+p
+\sum_{n=0}^{\infty} n \cdot x^{n-1}
++
+px \sum_{n=0}^{\infty} n \cdot (n-1) \cdot x^{n-2}
+\\
+&
+=
+p
+\sum_{n=0}^{\infty}
+\frac{\dd }{\dd x}
+[x^{n}]
++
+px
+\sum_{n=0}^{\infty}
+\frac{\dd^2 }{\dd x^2}
+[x^{n}]
+\\
+&
+=
+p
+\cdot
+\frac{\dd }{\dd x}
+\Big[
+\sum_{n=0}^{\infty} x^{n}
+\Big]
++
+px
+\cdot
+\frac{\dd^2 }{\dd x^2}
+\Big[
+\sum_{n=0}^{\infty} x^{n}
+\Big]
+\\
+&
+=
+p
+\frac{1}{(1-x)^2}
++
+px
+\frac{2}{(1-x)^3}
+\\
+&
+=
+\frac{1}{p}
++
+2
+\cdot
+\frac{1-p}{p^2}
+\\
+&
+=
+\frac{2-p}{p^2}
+.
+%\qedhere
+\end{align}
+Como antes, sabemos que a série de potência $ \sum_n x^n $ converge se $ |x|<1 $, e estamos aceitando uma propriedade que diz que a série de potência pode ser diferenciada termo a termo dentro desse intervalo.
+\end{example}
+
+\begin{example}
+Suponha que $X \sim \Geom(p)$.
+Para quais valores de $t$ a função $e^{tX}$ é integrável e qual é o valor de $\E[e^{tX}]$?
+Podemos escrever
+\[
+\E[e^{tX}]
+=
+\sum_{n=1}^\infty e^{tn} \cdot p \cdot (1-p)^{n-1}
+=
+pe^t
+\sum_{k=0}^\infty [e^t \cdot (1-p)]^{n-1}
+=
+\frac{pe^t}{1- [e^t \cdot (1-p)]}
+.
+\]
+Isso pode ser reescrito como
+\[
+\E[e^{tX}] = \frac{p}{e^{-t}+p-1}
+,
+\]
+e é definido se $ e^t \cdot (1-p) < 1 $, ou alternativamente $ t < \ln\frac{1}{1-p} $, e é indefinido caso contrário.
+\end{example}
+
+\subsection{Variância}
+
+Aqui introduzimos outra quantidade fundamental que descreve a distribuição de uma variável aleatória.
+Enquanto $ \E[X] $ fornece o número médio de $ X $, agora definimos uma quantidade que quantifica o grau de dispersão de $ X $ em relação ao seu valor médio.
+
+\begin{definition}
+[Variáveis aleatórias quadrado-integráveis]
+Dizemos que uma variável aleatória discreta $X$ é \emph{quadrado-integrável} se $X^2$ for integrável, o que significa que a soma
+\[
+\sum_{x : \Pb(X=x)>0 } x^2 \cdot \Pb(X=x)
+\]
+é convergente.
+Observe que variáveis aleatórias quadrado-integráveis são automaticamente integráveis, pois $ |x| \leq 1 + x^2 $.
+\end{definition}
+
+\begin{definition}
+[Variância]
+Seja $X$ uma variável aleatória discreta quadrado-integrável e denote $ \mu = \E[X] $.
+Definimos a \emph{variância} de $ X $ como
+\[
+\V (X) = \E\big[ (X - \mu)^2 \big]
+.
+\]
+%se a última expectativa estiver definida.
+%Se a expectativa externa estiver definida, dizemos que a variância de $ X $ é finita (uma vez que o termo dentro da expectativa é sempre não negativo, a única maneira de não estar definido é que a soma correspondente seja infinita).
+\end{definition}
+
+Embora esta fórmula seja a melhor definição para entender as propriedades da variância, muitas vezes existe uma maneira mais conveniente de calculá-la:
+\[
+\V (X) = \E[X^2] - (\E[X])^2
+,
+\]
+que obtemos expandindo $ \E[(X - \mu)^2] = \E[X^2 -2 \mu X + \mu^2]$ = $ \E[X^2] - \mu^2 $.
+
+\begin{example}
+[Poisson]
+Suponha que $ X \sim \Poisson(\lambda) $.
+Então
+\[
+\V(X) = \E[X^2] - (\E[X])^2 = \lambda + \lambda^2 - \lambda = \lambda,
+\]
+portanto, a variância de uma variável aleatória de Poisson é igual à sua expectativa.
+\end{example}
+
+\begin{example}
+[Geométrica]
+Suponha que $ X \sim \Geom(p) $.
+Então
+\[
+\V(X) = \E[X^2] - (\E[X])^2 =
+\frac{2-p}{p^2}
+-
+\frac{1}{p^2}
+=
+\frac{1-p}{p^2}
+.
+\]
+\end{example}
+
+\begin{example}
+[Bernoulli]
+Suponha que $ X \sim \Bernoulli(p) $.
+Então
+\[
+\V(X) = \E[X^2] - (\E[X])^2 =
+p - p^2
+=
+p\cdot (1-p)
+.
+\]
+\end{example}
+
+Observe que
+\[
+\V (aX) = a^2 \cdot \V (X)
+\]
+o que significa que $ \V(X) $ não está na mesma unidade de medida que $ X $.
+Por exemplo, se $ X $ é medido em metros, então $ \E[X] $ também é medido em metros, mas $ \V(X) $ é medido em metros quadrados.
+
+Para quantificar a dispersão de $ X $ nas mesmas unidades de medida que $ X $, precisamos calcular a raiz quadrada.
+
+\begin{definition}
+[Desvio padrão]
+Seja $ X $ uma variável aleatória discreta quadrado-integrável.
+Definimos o \emph{desvio padrão de $ X $} como
+\[
+\sigma(X) = \sqrt{\V(X)}
+.
+\]
+%se a variância estiver definida.
+\end{definition}
+
+Ao contrário da variância, o desvio padrão satisfaz $ \sigma(aX) = |a| \cdot \sigma(X) $.
+
+O desvio padrão de uma variável aleatória de Poisson é $ \sqrt{\lambda} $, de uma variável aleatória de Bernoulli é $ \sqrt{p(1-p)} $, e de uma variável aleatória geométrica é $ \sqrt{p^{-2}-p^{-1}} $.
+
+
+\clearpage
+\section{Distribuições discretas multivariadas}
+
+\subsection{Função de massa de probabilidade conjunta de duas variáveis}
+
+\begin{definition}
+[Função de massa de probabilidade conjunta]
+Dadas duas variáveis aleatórias discretas $ X $ e $ Y $, definimos a \emph{função de massa de probabilidade conjunta de $ X $ e $ Y $}, denotada por $ p_{X,Y}:\R^2 \to \R $, e dada por
+\[
+p_{X,Y}(x,y)=\Pb(X=x, Y=y),
+\]
+ou, mais formalmente, $ \Pb(\{\omega\in\Omega: X(\omega)=x, Y(\omega)=y\}) $.
+\end{definition}
+
+\begin{example}
+Lance dois dados, e seja $ X $ o valor maior e $ Y $ o valor menor.
+Então, $ p_{X,Y}(x,y) $ para $ x=1,\dots,6 $ e $ y=1,\dots,6 $ é dado pela tabela
+\[
+\begin{array}{r|rrrrrr}
+  & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & \frac{1}{36} & \frac{2}{36} & \frac{2}{36} & \frac{2}{36} & \frac{2}{36} & \frac{2}{36} \\
+2 & \frac{0}{36} & \frac{1}{36} & \frac{2}{36} & \frac{2}{36} & \frac{2}{36} & \frac{2}{36} \\
+3 & \frac{0}{36} & \frac{0}{36} & \frac{1}{36} & \frac{2}{36} & \frac{2}{36} & \frac{2}{36} \\
+4 & \frac{0}{36} & \frac{0}{36} & \frac{0}{36} & \frac{1}{36} & \frac{2}{36} & \frac{2}{36} \\
+5 & \frac{0}{36} & \frac{0}{36} & \frac{0}{36} & \frac{0}{36} & \frac{1}{36} & \frac{2}{36} \\
+6 & \frac{0}{36} & \frac{0}{36} & \frac{0}{36} & \frac{0}{36} & \frac{0}{36} & \frac{1}{36} \\
+\end{array}
+,
+\]
+e $ p(x,y)=0 $ se $ x $ ou $ y $ não pertencerem a $ \{1,2,3,4,5,6\} $.
+\end{example}
+
+Observe que
+\begin{align}
+p_X(x)
+&=
+\Pb(X=x)
+\\
+&
+=
+\sum_{y\in D_Y} \Pb(X=x,Y=y)
++
+\Pb(X=x,Y\not\in D_Y)
+\\
+&
+=
+\sum_{y\in D_Y} \Pb(X=x,Y=y)
+\\
+&
+=
+\sum_{y \in D_Y} p_{X,Y}(x,y)
+\end{align}
+para cada $ x \in \R $, onde $ D_Y $ denota o suporte discreto de $ Y $.
+
+\begin{terminology*}
+[Função de massa de probabilidade marginal]
+A fórmula acima para calcular a função de massa de probabilidade de $ X $ a partir da função de massa de probabilidade conjunta de $ X $ e $ Y $ é chamada de \emph{função de massa de probabilidade marginal}.
+\end{terminology*}
+
+\begin{example}
+Uma sacola contém 1 bola vermelha, 2 verdes e 2 azuis. Retiramos 2 bolas da sacola, sem reposição.
+Seja $ X $ o número de bolas verdes retiradas, e $ Y $ o número de bolas vermelhas retiradas.
+Então, a função de massa de probabilidade conjunta de $ X $ e $ Y $ é dada pela célula central da tabela abaixo:
+\[
+\begin{array}{r|rrr|r}
+y \backslash x	&	0	&	1	&	2	&	\text{total}
+\\ \hline								
+0	&	0.1	&	0.4	&	0.1	&	0.6
+\\								
+1	&	0.2	&	0.2	&	0	&	0.4
+\\ \hline								
+\text{total}&	0.3	&	0.6	&	0.1	&	1
+\end{array}
+\ .
+\]
+Somando cada coluna, encontramos a função de massa de probabilidade marginal de $ X $, que é dada por
+$ p_X(0)=0.3 $,
+$ p_X(1)=0.6 $,
+e
+$ p_X(2)=0.1 $.
+Somando cada linha, encontramos a função de massa de probabilidade marginal de $ Y $, que é dada por
+$ p_X(0)=0.6 $
+e
+$ p_X(1)=0.4 $.
+\end{example}
+
+
+\subsection{Esperança no caso bivariado discreto}
+
+\begin{proposition}
+[Esperança no caso bivariado]
+\label{prop:bivexp}
+Sejam $ X $ e $ Y $ variáveis aleatórias discretas e $ g:\R^2 \to \R $ uma função qualquer.
+Então
+\[
+\E[g(X,Y)] = \sum_{x \in D_X } \sum_{y \ in D_Y} g(x,y) \cdot \Pb(X=x,Y=y),
+\]
+se essa soma convergir absolutamente, e $ \E[g(X,Y)] $ é indefinida caso contrário.
+Os conjuntos $ D_X $ e $ D_Y $ na fórmula denotam os suportes discretos de $ X $ e $ Y$.
+\end{proposition}
+\begin{proof}
+Seja $ Z = g(X,Y) $.
+Primeiro, observamos que, para cada $ z \in \R $,
+\begin{align}
+\Pb(Z=z)
+& = \Pb\big( g(X,Y)= z\big)
+\\
+& = \Pb\big( (X,Y) \in g^{-1}(z) \big)
+\\
+& = \sum_{(x,y) \in g^{-1}(z) \cap D} \Pb\big( X=x, Y=y \big)
+,
+\end{align}
+onde $ D = \{(x,y):\Pb(X=x,Y=y)>0\} $.
+O suporte de $ Z $ é dado pela imagem $ D_Z = g(D) $, que é contável.
+Finalmente,
+\begin{align}
+\text{Esperança}[Z]
+&
+=
+\sum_{z \ in D_Z} z \cdot \Pb(Z=z)
+\\
+&
+=
+\sum_{z \in D_Z}
+\sum_{(x,y) \ in g^{-1}(z)\cap D}
+z \cdot \Pb\big( X=x, Y=y \big)
+\\
+&
+=
+\sum_{z \in D_Z}
+\sum_{(x,y) \ in g^{-1}(z)\cap D}
+g(x,y) \cdot \Pb\big( X=x, Y=y \big)
+\\
+&
+=
+\sum_{(x,y) \ in D}
+g(x,y) \cdot \Pb\big( X=x, Y=y \big)
+\\
+&
+=
+\sum_{x \ in D_X } \sum_{y \ in D_Y} g(x,y) \cdot \Pb(X=x,Y=y)
+,
+\end{align}
+e a soma converge absolutamente se e somente se $ Z $ for integrável.
+Isso conclui a prova.
+\end{proof}
+
+\begin{proof}
+[Prova da Proposição~\ref{prop:lus}]
+Se tomarmos $ Y=0 $ e aplicarmos a Proposição~\ref{prop:bivexp} com $ \tilde{g}(x,y)=g(x) $, obtemos
+\begin{align}
+\text{Esperança}[X]
+&
+=
+\text{Esperança}[\tilde{g}(X,Y)]
+\\
+&
+=
+\sum_{x \ in D_X } \sum_{y \ in \{0\}} \tilde{g}(x,y) \cdot \Pb(X=x,Y=y)
+\\
+&
+=
+\sum_{x \ in D_X } {g}(x) \cdot \Pb(X=x),
+\end{align}
+e as somas convergem absolutamente se e somente se $ \text{Esperança}[X] $ estiver definida.
+Isso conclui a prova da Proposição~\ref{prop:lus}.
+\end{proof}
+
+\begin{corollary}
+A esperança é linear.
+\end{corollary}
+\begin{proof}
+Suponhamos que $X$ e $Y$ são integráveis, e que $a, b \in \R$.
+Usando a Proposição~\ref{prop:bivexp} com $g(x,y)=ax+by$, $g(x,y)=x$ e $g(x,y)=y$, obtemos
+\begin{align}
+\MoveEqLeft
+\E[aX+bY]
+=
+\sum_{x \in D_X } \sum_{y \in D_Y} (ax+by) \cdot \Pb(X=x,Y=y)
+\\
+& =
+a
+\sum_{x \in D_X } \sum_{y \in D_Y} x \cdot \Pb(X=x,Y=y)
++
+b
+\sum_{x \in D_X } \sum_{y \in D_Y} y \cdot \Pb(X=x,Y=y)
+\\
+& =
+a \, \E[X] + b \, \E[Y],
+\end{align}
+o que é o que queríamos provar.
+\end{proof}
+
+\subsection{Variáveis aleatórias discretas independentes}
+\label{sub:independencerv}
+
+\begin{definition}
+[Independência]
+Duas variáveis aleatórias discretas $X$ e $Y$ são \emph{independentes} se
+\[
+p_{X,Y}(x,y) = p_X(x) \cdot p_Y(y)
+\]
+para todo $x, y \in \R$.
+\end{definition}
+
+\begin{example}
+Lance uma moeda justa 5 vezes.
+Seja $X$ o número de Caras nos três primeiros lances e $Y$ o número de Caras nos dois últimos lances.
+Então, a função de massa de probabilidade conjunta é mostrada na tabela
+\[
+\begin{array}{c|cccc|c}
+y \backslash x	&	0	&	1	&	2	&	3	&	\text{total}	\\
+\hline
+0	&	  1/32	&	  3/32	&	  3/32	&	  1/32	&	1/4	\\
+1	&	  2/32	&	  6/32	&	  6/32	&	  2/32	&	1/2	\\
+2	&	  1/32	&	  3/32	&	  3/32	&	  1/32	&	1/4	\\
+\hline
+\text{total}	&	1/8	&	3/8	&	3/8	&	1/8	&	1	\\
+\end{array}
+\]
+Observe como cada entrada no meio da tabela é dada pelo produto de sua soma de coluna e soma de linha, o que significa exatamente que $p_{X,Y}(x,y) = p_X(x) \cdot p_Y(y)$.
+\end{example}
+
+\begin{definition}
+[Independência par a par]
+Dizemos que uma coleção de variáveis aleatórias discretas $X_1, X_2, X_3, \dots$ é \emph{independente par a par} se $X_j$ e $X_k$ forem independentes para todo $j \neq k$.
+\end{definition}
+
+\begin{definition}
+[Independência mútua]
+Dizemos que uma coleção de variáveis aleatórias discretas $X_1, X_2, X_3, \dots$ é \emph{mutuamente independentes} se, para todo $k$ e todo $x_1,x_2,\dots,x_k$, tivermos
+\[
+\Pb(X_1=x_1,X_2=x_2,\dots,X_k=x_k)
+=
+\Pb(X_1=x_1)
+\cdot
+\Pb(X_2=x_2)
+\cdots
+\Pb(X_k=x_k)
+.
+\]
+\end{definition}
+
+\begin{theorem}
+[Esperança de variáveis aleatórias independentes]
+\label{thm:fubini}
+Se $X$ e $Y$ são variáveis aleatórias discretas independentes integráveis, então $XY$ é integrável e
+\[
+\E[XY] = \E[X] \cdot \E[Y].
+\]
+\end{theorem}
+
+\begin{proof}
+Usando a Proposição~\ref{prop:bivexp}, temos:
+\begin{align}
+\E[XY]
+&=
+\sum_{x \in D_X } \sum_{y \in D_Y} xy \cdot \Pb(X=x,Y=y)
+\\
+&=
+\sum_{x \in D_X } x \cdot \left( \sum_{y \in D_Y} y \cdot \Pb(X=x)\Pb(Y=y) \right)
+\\
+&=
+\sum_{x \in D_X } x \cdot \Pb(X=x) \cdot \left( \sum_{y \in D_Y} y \cdot \Pb(Y=y) \right)
+\\
+&=
+\left( \sum_{y \in D_Y} y \cdot \Pb(Y=y) \right)
+\cdot
+\left( \sum_{x \in D_X } x \cdot \Pb(X=x) \right)
+\\
+&=
+\E[X] \cdot \E[Y].
+\end{align}
+Para usar a Proposição~\ref{prop:bivexp}, deveríamos ter sabido que $XY$ era integrável desde o início. Isso pode ser verificado usando exatamente o mesmo desenvolvimento com $|x|$ em vez de $x$ e $|y|$ em vez de $y$.
+Isso prova o teorema.
+\end{proof}
+
+\begin{example}
+Lance um dado justo duas vezes e multiplique os valores observados.
+\begin{align}
+&
+\E [X]
+=
+\frac{1}{36} \big( 1\cdot1 + 2\cdot2 + 3\cdot2 + 4\cdot3 + 5\cdot2 + 6\cdot4
++
+8\cdot2 + 9\cdot1 + 10\cdot2
++
+\\
+&
+\quad
++
+12\cdot4 + 
+15\cdot2 + 16\cdot1
++
+18\cdot2 + 20\cdot2 + 24\cdot2 + 25\cdot1 + 30\cdot2 + 
+36\cdot1 \big)
+\\
+&
+=
+%\frac{441}{36} =
+\frac{49}{4}.
+\qedhere
+\end{align}
+
+Uma solução mais simples é observar que $X = YZ$, onde $Y$ e $Z$ representam o primeiro e o segundo lançamento do dado. Usando o teorema acima,
+\[
+\E [X] = \E [Y] \cdot \E [Z] = \frac{7}{2} \cdot \frac{7}{2} = \frac{49}{4}
+.
+%\qedhere
+\]
+Observe como o cálculo foi simplificado.
+\end{example}
+
+\begin{proposition}
+Se $X_1, \dots, X_n$ são variáveis aleatórias discretas integráveis independentes duas a duas, então
+\begin{equation}
+\V\left(\sum_{i=1}^{n}X_i\right) = \sum_{i=1}^{n} \V(X_i) \,.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Seja $\mu_i:=\E[X_i], \, \, i=1,2,\dots,n$ e defina 
+$\mu:= \sum_{i=1}^{n}\mu_i= \E\left[\sum_{i=1}^{n}X_i\right]$ pela linearidade da esperança. Então,
+\begin{align}
+\V\left(\sum_{i=1}^{n} X_i \right) &= \E\left[\left(\sum_{i=1}^{n}X_i- \mu\right)^2\right] \\
+&= \E\left[\left(\sum_{i=1}^{n}(X_i- \mu_i)\right)^2\right] \\
+&= \E\left[ \sum_{i=1}^{n} \sum_{j=1}^{n} (X_i-\mu_i)(X_j-\mu_j) \right] \\
+&= \E\left[\sum_{i=1}^{n}(X_i-\mu_i)^2\right] + \E\left[\sum_{i \neq j}(X_i-\mu)(X_j-\mu_j)\right] \\
+&= \sum_{i=1}^{n} \E[(X_i-\mu_i)^2]+\sum_{i \neq j}\E[(X_i-\mu_i)(X_j-\mu_j)] \\
+&= \sum_{i=1}^{n} \text{Var}(X_i) + \sum_{i \neq j} \Big( \E[X_i X_j] - \mu_i \mu_j \Big) \\
+&= \sum_{i=1}^{n} \text{Var}(X_i).
+\qedhere
+\end{align}
+\end{proof}
+

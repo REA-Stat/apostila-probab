@@ -1,0 +1,562 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\section{Espaços de probabilidade uniforme}
+\label{uniform probability spaces}
+
+\subsection{Probabilidade em termos de conjuntos e funções}
+
+Considere o seguinte experimento: uma caixa contém 4 bolas vermelhas, 6 bolas azuis e 10 bolas verdes. Escolhemos uma bola \emph{aleatoriamente}. Qual é a \emph{probabilidade} de essa bola ser vermelha? Aprendemos na escola que isso deveria ser o número de bolas vermelhas sobre o número total de bolas, ou seja, $\frac{4}{20}=0.2=20\%$, e isso é de fato verdade sob certas suposições. Para entender as suposições que implicitamente fazemos ao realizar esse cálculo, fazemos as seguintes perguntas:
+
+\begin{itemize}
+\item O que é uma probabilidade como objeto matemático?
+\item Que outras perguntas poderíamos fazer sem alterar o experimento?
+\item A resposta seria a mesma se algumas bolas fossem mais difíceis de segurar (por exemplo, se tivessem tamanhos diferentes)?
+\end{itemize}
+Observe que quando perguntamos sobre uma probabilidade, precisamos determinar o evento cuja probabilidade nos interessa - enquanto a probabilidade de um evento específico (por exemplo, 'a bola é vermelha') é um número no intervalo de $[0,1]$, \emph{a probabilidade em si é um mapeamento que associa a cada evento um número}.
+
+Há três possíveis resultados para este experimento: vermelho, azul e verde. Chamamos o conjunto de todos os resultados possíveis de \emph{espaço amostral}, normalmente representado por $\Omega$. Como objeto matemático, $\Omega$ é qualquer conjunto não vazio - neste caso, $\Omega = {vermelho, azul, verde}$.
+
+No entanto, podemos fazer outras perguntas também. Por exemplo, podemos perguntar qual é a probabilidade de 'a bola ser azul ou verde' (o que seria equivalente a 'a bola não ser vermelha'). Em palavras, um evento é uma afirmação na qual você pode determinar se é verdadeira ou não após ver o resultado do experimento. Neste caso, todos os eventos possíveis são:
+
+\begin{itemize}
+\item 'A bola não é de nenhuma das três cores ou de qualquer outra cor' - matematicamente, isso será representado pelo conjunto vazio $\emptyset$, já que não contém nenhum dos resultados possíveis.
+\item 'A bola é vermelha' - representado por ${vermelho}$
+\item 'A bola é azul' - representado por ${azul}$
+\item 'A bola é verde' - representado por ${verde}$
+\item 'A bola é ou vermelha ou azul' - representado por ${vermelho, azul}$
+\item 'A bola é ou vermelha ou verde' - representado por ${vermelho, verde}$
+\item 'A bola é ou azul ou verde' - representado por ${azul, verde}$
+\item 'A bola é qualquer uma das cores vermelha, azul ou verde' - representado por ${vermelho, azul, verde}=\Omega$.
+\end{itemize}
+
+Desta lista exaustiva, fica claro que todos os eventos são subconjuntos de $\Omega$ e, de fato, neste caso pelo menos, todos os subconjuntos de $\Omega$ são eventos. Chamamos a coleção de todos os eventos de \emph{espaço de eventos} (ou, mais formalmente, $\sigma$-álgebra), normalmente representado por $\mathcal{F}$. Como objeto matemático, isso é uma coleção de subconjuntos do espaço amostral - veremos mais tarde que essa coleção deve satisfazer certas propriedades, mas por enquanto, supomos que ela inclui todos os subconjuntos, então $\mathcal{F}= \mathcal{P}(\Omega)$, onde $\mathcal{P}$ denota o conjunto das partes (a coleção de todos os subconjuntos).
+
+Já argumentamos que a probabilidade, normalmente representada por $\Pb$, é um mapeamento do espaço de eventos para números em $[0,1]$ - o representamos como $\Pb:\mathcal{F}\to[0,1]$. No entanto, com base em nossa intuição, esperamos que:
+
+\begin{itemize}
+\item $\Pb(\emptyset)=0$
+\item $\Pb({vermelho})=0,2$
+\item $\Pb({azul})=0,3$
+\item $\Pb({verde})=0,5$
+\item $\Pb({vermelho, azul})=0,5$
+\item $\Pb({vermelho, verde})=0,7$
+\item $\Pb({azul, verde})=0,8$
+\item $\Pb({vermelho, azul, verde})=1$.
+\end{itemize}
+
+Quais suposições implícitas estamos fazendo ao fazer esses cálculos, com base em nossa intuição?
+
+\begin{itemize}
+\item A probabilidade do evento $\emptyset$, que não inclui nenhum resultado, deve ser 0.
+\item A probabilidade do evento $\Omega$, que inclui todos os resultados, deve ser 1.
+\item Quando um evento pode ser decomposto na união de dois eventos disjuntos, sua probabilidade deve ser a soma das duas probabilidades, por exemplo, $\Pb({vermelho, azul}) = \Pb({vermelho}) + \Pb({azul})$.
+\end{itemize}
+
+Essas são propriedades fundamentais que um mapeamento de probabilidade deve ter.
+
+In conclusion, the triplet $(\Omega,\cF,\Pb)$ of sample space $\Omega$, event space $\mathcal{F}$ and probability $\Pb$ form what is called a \emph{probability space}.
+
+Em conclusão, o trio $(\Omega, \mathcal{F}, \Pb)$, composto pelo espaço amostral $\Omega$, espaço de eventos $\mathcal{F}$ e probabilidade $\Pb$, forma o que é chamado de um \emph{espaço de probabilidade}.
+
+\subsection{Espaço de Probabilidade Uniforme}
+\label{espaços de probabilidade uniforme}
+
+No exemplo anterior, a maneira como postulamos a probabilidade de cada cor tinha uma suposição implícita: que todas as bolas têm a mesma chance de serem escolhidas. Essa é uma suposição correta se as bolas têm o mesmo peso, tamanho, textura, etc.
+
+E se, em vez de serem coloridas em vermelho, verde ou azul, as bolas fossem numeradas de 1 a 20?
+Sob a mesma suposição (que as bolas têm o mesmo peso, tamanho, textura, etc.), teríamos
+$$\Omega=\{vermelho_1,\dots,vermelho_4, azul_1,\dots, azul_6, verde_1,\dots,verde_{10}\}$$ e $\Pb$ seria tal que cada bola teria a mesma chance de ser escolhida, ou seja, cada elemento $\omega \in \Omega$ teria a mesma chance. Então, o evento 'a bola é vermelha' corresponderia ao evento $A=\{vermelho_1,\dots,vermelho_4\}$ e intuitivamente esperaríamos que a probabilidade de obter uma bola vermelha fosse igual a $\frac{4}{20}$, onde $4$ é o número de elementos em $A$ (e bolas vermelhas) e $20$ é o número de todos os resultados possíveis.
+
+Quando cada resultado é igualmente provável, temos um espaço de probabilidade uniforme.
+
+\begin{definition}
+\label{def:espaço de probabilidade uniforme}
+Um \emph{espaço de probabilidade uniforme} é definido como o trio $(\Omega,\mathcal{F},\Pb)$, onde
+    \begin{itemize}
+        \item $\Omega$ (o \emph{espaço amostral}) é um conjunto finito não vazio de todos os resultados possíveis do experimento;
+        \item $\mathcal{F}$ (o \emph{espaço de eventos}) é a coleção de todos os eventos, dada pelo conjunto de potências $\mathcal{P}(\Omega)$ de $\Omega$;
+        \item $\Pb:\mathcal{F}\to [0,1]$ é um mapeamento do espaço de eventos para $[0,1]$, satisfazendo 
+        \noeqref{P_prop1}
+        \noeqref{P_prop3}
+        \begin{subequations}
+        \begin{align}
+            & \hspace{0,3cm} -\, 
+                \Pb(\emptyset)=0, \Pb(\Omega) = 1\,, \label{P_prop1} \\
+            & \hspace{0,3cm} -\, 
+                \Pb(A\cup B) = \Pb(A)+\Pb(B)\,, 
+                \text{ para todo } A,B\in\mathcal{F} 
+                \text{ tal que } A\cap B = \emptyset 
+                \phantom{-----}
+                \nonumber \\
+            & \hspace{0,8cm} 
+                \text{(aditividade finita)}
+                \label{fin_ad}\\
+            & \hspace{0,3cm} -\,
+               %\text{(uniforme)} \qquad
+               \Pb(\{\omega\}) = \Pb(\{\tilde{\omega}\}) \text{ para todo } \omega,\tilde{\omega}\in\Omega  
+               \qquad \text{(uniforme)}
+               \label{P_prop3}
+        \end{align}
+        \end{subequations}
+    \end{itemize}
+\end{definition}
+
+Como resultado da suposição uniforme, calcular a probabilidade de qualquer evento se resume a calcular a cardinalidade do evento. Lembre-se de que um evento é um conjunto (um subconjunto do espaço amostral $\Omega$) - a cardinalidade de um conjunto é o número de seus elementos. Para um conjunto $A\subseteq \Omega$, ele é denotado por $|A|$.
+
+Para definir formalmente a cardinalidade, primeiro precisamos definir uma correspondência um a um entre dois conjuntos: dados dois conjuntos $A$ e $B$, dizemos que eles estão em uma correspondência um a um se existir um mapa bijetivo entre eles, ou seja, uma função $f:A \to B$ que seja tanto injetiva quanto sobrejetiva.
+
+\begin{definition}
+Um conjunto $A$ possui cardinalidade $n \in \N$ se estiver em uma correspondência um a um com $\{1,2,\dots,n\}$ e $A$ possui cardinalidade $0$ se $A = \emptyset$.
+\end{definition}
+
+\begin{proposition}
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade uniforme. Então, para todo $\omega \in \Omega$
+\begin{equation}
+\Pb(\{\omega\})= \frac{1}{|\Omega|} \, ,\label{p_omega}
+\end{equation}
+e para todo $A \subseteq \Omega$ ($A \in \cF$)
+\begin{equation}
+\label{p_A}
+\Pb(A)= \frac{|A|}{|\Omega|} \, .
+\end{equation}
+\label{prob_prop}
+\end{proposition}
+
+\begin{proof}
+Uma vez que $\forall \, \omega_1, \omega_2 \in \Omega$, $\Pb(\{\omega_1\})=\Pb(\{\omega_2\})$, seja $p \in [0,1]$ tal que
+\begin{equation}
+p:= \Pb(\{\omega\}) \quad \forall \, \omega \in \Omega \,.
+\end{equation}
+Uma vez que $\Pb$ é uma medida de probabilidade 
+\begin{align}
+ 1= \Pb(\Omega) &= 
+{\sum_{\omega \in \Omega} \Pb(\{w\})]} \quad \text{por \eqref{fin_ad}}\\
+  %finite additivity} \\
+&={\sum_{\omega \in \Omega} p = p \sum_{\omega \in \Omega} 1 = p |\Omega| \,.} %\nonumber
+\end{align}
+Portanto 
+\begin{equation}
+p= \frac{1}{|\Omega|} \,.
+\end{equation}
+demonstrando \eqref{p_omega}.
+Vemos que \eqref{p_A} segue de \eqref{fin_ad}, pois 
+\begin{align}
+\Pb(A) &= \sum_{\omega \in A} \Pb(\{\omega\}), \quad \text{por \eqref{fin_ad}} \\
+&=\sum_{\omega \in A} p = p \sum_{\omega \in A} 1 = p |A|= \frac{|A|}{|\Omega|} \,.
+\qedhere
+\end{align}
+\end{proof}
+
+\begin{exercise}
+Considere uma urna com 50 bolas numeradas de 1 a 50. Suponha que elas sejam sorteadas uniformemente ao acaso. Após definir um espaço de probabilidade adequado, determine a probabilidade de que a primeira bola sorteada mostre um número divisível por 12.
+\end{exercise}
+
+\noindent \emph{Solução:} Defina $(\Omega,\mathcal{F},\mathbb{P})$ da seguinte forma: $\Omega=\{1,2,3,\dots,50\}$, $\mathcal{F} = \mathcal{P}(\Omega)$ e $\mathbb{P}$ a medida de probabilidade uniforme. Então, o evento em questão é
+\begin{equation}
+E = \{12,24,36,48\} \,.
+\end{equation}
+Pela Proposição~\ref{prob_prop} \eqref{p_A},
+\begin{equation}
+\mathbb{P}(E) = \frac{|E|}{|\Omega|} = \frac{4}{50} = \frac{2}{25} \,.
+\end{equation}
+
+\cleardoublepage
+\section{Contagem}
+\label{sec: how to count}
+
+\subsection{Fundamentos da Combinatória}
+
+Em geral, a fórmula~\eqref{p_A} afirma que, para calcular probabilidades, precisamos contar. Esta seção aprofunda o problema da contagem.
+
+% Exemplo de aniversário
+\begin{example}
+\label{aniversário}
+Se houver 30 pessoas em uma sala, qual é a probabilidade de pelo menos duas delas terem a mesma data de aniversário? (Assuma que ninguém nasceu em 29 de fevereiro e que cada dia tem a mesma chance de ser o aniversário de alguém).
+\end{example}
+
+Para responder à pergunta no Exemplo~\ref{aniversário}, precisamos calcular a cardinalidade do conjunto de todas as possíveis combinações de datas de aniversário, bem como a cardinalidade do conjunto de todas as possíveis combinações de datas de aniversário em que pelo menos duas são iguais. Como fazemos isso? Precisaremos usar o princípio fundamental da contagem, que nos permite calcular as cardinalidades de conjuntos grandes e complexos, onde a contagem explícita não é possível.
+
+Primeiro, começamos identificando as regras fundamentais da contagem:
+\begin{description}
+\item[Regra da Correspondência] Se $A$ e $B$ estão em correspondência um-para-um, então $|A|= |B|$.
+\item[Regra da Adição] Se $A_1, \dots, A_n$ são subconjuntos mutuamente disjuntos de algum conjunto, então
+\begin{equation}
+\left| \bigcup_{i=1}^{n}A_i \right| = \sum_{i=1}^{n}|A_i| \,.
+\end{equation} 
+\item[Princípio Fundamental da Contagem]
+Suponha que os elementos de um conjunto finito $E$ podem ser determinados em $k$ etapas sucessivas, com $n_1$ escolhas possíveis na etapa 1, $n_2$ escolhas possíveis na etapa 2, $\dots$, $n_k$ escolhas possíveis na etapa $k$. Suponha também que escolhas diferentes levam a elementos diferentes. Então,
+\begin{equation}
+|E|= n_1 \cdot n_2 \cdot \dots \cdot n_k \,.
+\end{equation}
+\end{description}
+
+O conjunto de todas as combinações de datas de aniversário de 30 pessoas, como mostrado no Exemplo~\ref{aniversário}, é um exemplo de um conjunto de $k$-tuplas ordenadas de elementos de um conjunto dado. Mais genericamente, isso é definido da seguinte forma:
+
+\begin{definition}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$. Uma \emph{sequência de comprimento $k \in \N$ de elementos de $A$} é uma $k$-tupla ordenada $(a_1,\dots,a_k)$ tal que $a_i \in A$, $i=1,2, \dots k$. Denotamos por $S_{n,k}(A)$ o conjunto de todas as sequências de comprimento $k$ de elementos de $A$. \label{def_seq}
+\end{definition}
+
+Por ``ordenado'', queremos dizer que a ordem da sequência importa, por exemplo: $(a_1,a_2) \neq (a_2,a_1)$. Note também que repetições de elementos são permitidas, por exemplo, $(1,1)$ é uma sequência de comprimento $2$ de elementos de $\{1\}$.
+
+\begin{proposition}\label{prop_seq_card}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$. O conjunto $S_{n,k}(A)$ de todas as sequências de comprimento $k \in \N$ de elementos de $A$ tem cardinalidade $n^k$, ou seja,
+\begin{equation}
+|S_{n,k}(A)|=n^k
+\end{equation}
+\end{proposition}
+\begin{proof}
+
+\noindent Para construir um elemento arbitrário $(a_1,a_2,\dots,a_k)$ de $S_{n,k}(A)$, realizamos as seguintes etapas:
+\begin{enumerate}
+\item escolher o primeiro valor $a_1$. Existem $n_1=|A|=n$ maneiras de fazer isso.
+\item escolher o segundo valor $a_2$. Existem $n_2=|A|=n$ maneiras de fazer isso.
+$$\vdots$$
+\item[$k$.] Escolher o valor $a_k$ do $k$\textsuperscript{º} elemento. Existem $n_k=|A|=n$ maneiras de fazer isso.
+\end{enumerate}
+Portanto, encontramos
+\begin{equation}
+|S_{n,k}(A)| = n_1 \cdot n_2 \cdot \dots \cdot n_k = \underbrace{n \cdot n \cdot \dots \cdot n}_{k \text{ vezes}} = n^k \,.
+\end{equation}
+\end{proof}
+
+Para completar o Exemplo~\ref{aniversário}, também precisamos calcular a cardinalidade do conjunto de todas as datas de aniversário possíveis em que pelo menos duas são iguais. É mais fácil e equivalente (por quê?) calcular a cardinalidade do conjunto em que nenhum dois aniversários são iguais. Como não pode haver repetições, isso é um exemplo de uma "ordenação de comprimento $30$ de elementos de $\{1,\dots,365\}$". Mais genericamente, definimos ordenações de comprimento $k$ da seguinte forma:
+
+\begin{definition}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$ e seja $k \in \N$ tal que $k \leq n$. Uma \emph{ordenação de comprimento $k$ de elementos de $A$} é uma sequência de comprimento $k$ de elementos de $A$ sem repetições. Denotamos o conjunto de ordenações de comprimento $k$ de elementos de $A$ por $O_{n,k}(A)$. Assim, temos
+\begin{equation}
+O_{n,k}(A) = \{(a_1,\dots,a_k): \, a_i \in A \, \forall i=1,\dots,k, \quad a_i \neq a_{j} \,\, \forall i \neq j\} \,.
+\end{equation}
+\end{definition}
+
+\begin{proposição}\label{prop_card_ord}
+Seja $A$ um conjunto finito de cardinalidades $n \in \N$ e $k \leq n$. Então
+\begin{equation}
+|O_{n,k}(A)| = n(n-1)\dots(n-k+1) \,.
+\end{equation}
+\end{proposição}
+\begin{proof}
+Determinamos um elemento de $O_{n,k}(A)$ pelas seguintes etapas:
+\begin{enumerate}
+\item Escolhemos $a_1$. Existem $n_1=|A|=n$ opções para isso.
+\item Escolhemos $a_2$ tal que $a_2 \neq a_1$. Existem $n_2=n-1$ opções para isso.
+\item Escolhemos $a_3$ tal que $a_3 \neq a_2$ e $a_3 \neq a_1$. Existem $n_3=n-2$ opções para isso.
+$$\vdots$$
+
+\item[$k$.] Escolhemos $a_k$ tal que $a_k \neq a_i$ $\forall \, i=1,2,\dots,k-1$. Existem $n_k=n-(k-1)$ opções para isso.
+\end{enumerate}
+Pelo princípio fundamental da contagem
+\begin{equation}
+|O_{n,k}(A)| = n_1n_2\dots n_k=n(n-1)\dots(n-k+1) \,.
+\end{equation}
+\end{proof}
+
+\begin{exemplo}[continuação]
+     Agora podemos responder à questão do Exemplo~\ref{aniversário}. Primeiro, calculamos a probabilidade de que duas pessoas não façam aniversário no mesmo dia, correspondendo ao evento B. Conforme discutido acima, B é uma ordenação de comprimento 30 ($k=30$ de um conjunto de cardinalidade 365 ($n=365$) , então
+     \begin{equation}
+     \Pb(B) = \frac{|B|}{|\Omega|} = \frac{365\times\cdots\times(365-30+1)}{365^{30}} \approx 0,29
+     \end{equation}
+     O evento de pelo menos duas pessoas fazerem aniversário no mesmo dia é o complemento do evento B, então a probabilidade de pelo menos duas entre 30 pessoas fazerem aniversário no mesmo dia será próxima de 71\%.
+\end{exemplo}
+
+\begin{remarks*}
+Lemos $n!$ como $n$ fatorial. A seguinte espera:
+\begin{itemize}
+\item $n!$ é o produto dos primeiros $n$ números naturais e por suposição $0!=1$.
+\item $n!$ é o número de maneiras pelas quais podemos ordenar os elementos de um conjunto de cardinalidade $n$ ou equivalentemente o número de maneiras de colocar os elementos de um conjunto de cardinalidade $n$ em uma linha.
+\item $n(n-1)\dots(n-k+1)$ = $\frac{n!}{(n-k)!}$ é o número de maneiras de colocar $k$ elementos de um conjunto de cardinalidade $n$ consecutivos.
+\end{itemize}
+\end{remarks*}
+
+\begin{exemplo}
+\label{aniversário2}
+     Agora consideramos uma questão ligeiramente diferente daquela do Exemplo~\ref{aniversário}: qual é a probabilidade de \emph{exatamente} duas pessoas na sala fazerem aniversário no mesmo dia? Para construir tal exemplo, precisaríamos
+     \begin{itemize}
+         \item[1.] Escolha as duas pessoas que fazem aniversário no mesmo dia.
+         \item[2.] Escolha um dia para o aniversário deles.
+         \item[3.] Escolha um dia para o aniversário de todos os outros, para que nenhum outro aniversário seja igual.
+     \end{itemize}
+     De quantas maneiras podemos escolher duas pessoas que fazem aniversário no mesmo dia? Precisamos escolher dois números de $C=\{1,\dots,30\}$ -- esta será uma sequência de comprimento 2 sem repetição, mas o que é diferente do que tínhamos antes é que a ordem não não importa. Quer seja $(1,2)$ ou $(2,1)$, ainda é o mesmo par de pessoas com a mesma data de aniversário! Para corrigir isso, precisamos dividir por todas as maneiras possíveis pelas quais podemos ordenar os dois elementos - cada forma será uma sequência de comprimento 2 sem repetição, mas agora estamos escolhendo a partir de um conjunto de apenas dois pontos, então o conjunto de todas as possibilidades é $O_{2,2}$. Isto dá
+     \begin{equation}
+         \frac{|O_{30,2}|}{|O_{2,2}|} = \frac{30 \times 29}{2!} = \frac{30!}{28!2!}.
+     \end{equation}
+     Denotamos isso por $\binom{30}{2}$. Agora, voltando à nossa questão: calculámos o número de maneiras pelas quais podemos escolher as duas pessoas com o mesmo aniversário. Existem 365 maneiras de escolher o aniversário. Para as 28 pessoas restantes, haverá $364\times\cdots\times (365-28)$ maneiras de escolher seus aniversários, já que todos precisam ser diferentes. Portanto, o número total de maneiras de selecionar um resultado no evento “exatamente duas pessoas fazem aniversário no mesmo dia” é
+     \[ \frac{30!}{28!2!} 365\times 364 \times\cdots\times (365-28). \]
+     Finalmente, para calcular a probabilidade de exatamente duas pessoas fazerem aniversário no mesmo dia, precisamos dividir pela cardinalidade de todas as combinações de aniversários possíveis dada por $365^{30}$, o que dá aproximadamente 0,38 ou 38\%.
+\end{exemplo}
+
+Escolher duas pessoas de um conjunto de 30 é um exemplo de combinação de $2$ elementos de $\{1,\dots,30\}$. De forma mais geral, podemos perguntar o número de combinações de $k$ elementos de um conjunto finito $A$.
+
+\begin{definição}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$. Uma \emph{combinação de $k$ elementos de $A$} é um subconjunto de $A$ com $k$ elementos. Denotamos por $C_{n,k}(A)$ o conjunto de combinações de $k$ elementos de $A$.
+\end{definição}
+
+xxx
+xxx
+xxx
+xxx
+xxx
+xxx
+xxx
+xxx
+xxx
+
+\begin{proposition}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$ e $k \leq n$. Então
+\begin{equation}
+|C_{n,k}(A)| = \binom{n}{k} = \frac{n!}{k!(n-k)!} \,.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Observe que uma ordenação de comprimento $k$ dos elementos de $A$ pode ser obtida \emph{unicamente} pelos seguintes passos:
+\begin{enumerate}[noitemsep]
+\item Escolher uma combinação de $k$ elementos de $A$. Existem $n_1 = |C_{n,k}(A)|$ escolhas para isso.
+\item Escolher uma permutação desses elementos. Pelo Corolário~\ref{cor_perm}, existem $n_2 = k!$ escolhas para isso.
+\end{enumerate}
+Pelo princípio fundamental da contagem,
+\begin{align}
+|O_{n,k}(A)| &= |C_{n,k}(A)| \cdot k!.
+\end{align}
+A equação acima pode ser resolvida para o único termo desconhecido, resultando em
+\begin{align}
+|C_{n,k}(A)| = \frac{|O_{n,k}(A)|}{k!} = \frac{n!}{(n-k)!k!} = \binom{n}{k} \,.
+\end{align}
+Isso conclui a prova.
+\end{proof}
+
+O número de ordenações de comprimento $n$ quando a cardinalidade do conjunto também é $n$ é um caso especial importante das ordenações:
+
+\begin{definition}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$.
+Uma ordenação de comprimento $n$ dos elementos de $A$ é chamada de \emph{permutação} de $A$.
+\end{definition}
+
+\begin{corollary}
+Seja $A$ um conjunto finito de cardinalidade $n \in \N$. Então o número de permutações dos elementos de $A$ é $n(n-1)(n-2)\dots1=n!$.
+    \label{cor_perm}
+\end{corollary}
+
+\begin{proof}
+É suficiente tomar $k=n$ na Proposição~\ref{prop_card_ord}.
+\end{proof}
+
+\begin{exercise}
+\label{combinacoes de dados}
+Um dado justo é lançado 8 vezes. Quantos resultados diferentes podemos obter que contenham o resultado 2 exatamente três vezes e o resultado 3 exatamente cinco vezes?
+\end{exercise}
+
+\begin{solution}
+Cada resultado possível é completamente determinado especificando quais lançamentos resultam em um 2 - o restante será 3. Por exemplo, o resultado $(2,3,2,2,3,3,3,3)$ é determinado pelo subconjunto $\{1,3,4\}$ do conjunto $\{1,2,3,4,5,6,7,8\}$, em que o primeiro corresponde às posições do 2 e o segundo é a numeração de todos os lançamentos. Portanto, para calcular o número de resultados possíveis, é suficiente calcular o número de subconjuntos de tamanho 3 de um conjunto com cardinalidade 8. Isso é exatamente $C_{8,3}$, que é igual a 56.
+\qed
+\end{solution}
+
+\begin{example}
+Vamos levar o exercício \ref{combinacoes de dados} um pouco mais adiante: como calcularíamos o número de resultados de 8 lançamentos de um dado que contenham exatamente três 2, três 4 e dois 5? Como antes, um resultado será completamente determinado especificando as posições de dois dos três possíveis resultados, por exemplo, 2 e 4. Por exemplo, o resultado $(2,4,5,2,2,5,4,4)$ corresponde aos conjuntos $A_2 = \{1,4,5\}$ e $A_4 = \{2,7,8\}$, onde $A_2$ é o conjunto de posições do resultado 2 e da mesma forma para $A_4$. Segue-se que $A_5 = \{3,6\}$, pois essas são as únicas duas posições restantes.
+
+Portanto, para responder à pergunta, precisamos contar quantas maneiras podemos escolher um subconjunto de $\{1,2,3,4,5,6,7,8\}$ de tamanho 3 e, em seguida, outro subconjunto de tamanho 3 dos 5 elementos restantes. Temos $\binom{8}{3}$ escolhas para o primeiro conjunto e $\binom{5}{3}$ escolhas para o segundo. Aplicando o princípio fundamental da contagem, obtemos
+\begin{equation}
+\binom{8}{3}\binom{5}{3} = \frac{8!}{5!3!}\frac{5!}{3!2!} = \frac{8!}{3!3!2!}.
+\end{equation}
+\end{example}
+
+O exemplo acima ilustra a contagem das maneiras de dividir um conjunto em um número fixo de subconjuntos. Para definir isso formalmente, primeiro precisamos definir uma partição:
+
+\begin{definition}
+Seja $A$ um conjunto de cardinalidade $n\in \N$ e $r \in \N$ tal que $r \leq n$. Uma \emph{partição de $A$ em $r$ subconjuntos} é uma família $\{A_1, \dots, A_r\}$ de subconjuntos de $A$ tal que
+\begin{enumerate}
+\item Cada subconjunto na família é não vazio: $A_i \neq \emptyset$ $\forall \, i=1,2,\dots,r$.
+\item Os subconjuntos na família são mutuamente disjuntos: $A_i \cap A_j = \emptyset $ $ \forall \, i \neq j$, $i,j=1,2,\dots,r$.
+\item A união de todos os subconjuntos na família é igual a $A$:  $\bigcup_{i=1}^{r}A_i=A$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+Seja $A$ um conjunto finito com $|A|=n$. Seja $r \in \N$, $r \leq n$. Então, o número de partições de $A$ em $r$ subconjuntos $\{A_1, \dots, A_r\}$, de forma que 
+$|A_1|=k_1$, $|A_2|=k_2\dots$, $|A_r|=k_r$ ($k_1+k_2+\dots+k_r=n$, $1 \leq k_i \leq n$), é dado por
+\begin{equation}
+\frac{n!}{k_1!k_2!\dots k_r!} \,.
+\end{equation}
+\label{prop_no_part}
+\end{proposition}
+\begin{proof}
+Toda partição de $A$ que satisfaça as suposições pode ser determinada de forma única pelos seguintes passos:
+\begin{enumerate}[noitemsep]
+\item Escolher $A_1 \subseteq A$ de modo que $|A_1|=k_1$. Existem ${n \choose k_1}$ opções para este passo.
+\item Escolher $A_2 \subseteq A$ de modo que $|A_2|=k_2$ e $A_1 \cap A_2 = \emptyset$ (o que implica que $A_2 \subseteq A \setminus A_1$). Existem 
+$ {n-k_1 \choose k_2}$ opções para este passo.
+\item Escolher $A_3 \subseteq A$ de modo que $|A_3|=k_3$, $A_3 \cap A_2 = \emptyset$ e $A_3 \cap A_1 = \emptyset$ (o que implica que $A_3 \subseteq A \setminus (A_1 \cup A_2)$). Existem 
+$ {n-k_1-k_2 \choose k_3}$ opções para este passo.
+$$\vdots$$
+\item[$r$.] Finalmente, escolher o conjunto restante $A_r \subseteq A$ de modo que $|A_r|=k_r$ e $A_i \cap A_j = \emptyset$ para todos $i=1,2,\dots,r-1$ (notamos que $A_r \subseteq A \setminus (A_1 \cup \dots \cup A_r)$). Existem 
+$ {n-(k_1+k_2+\dots+k_{r-1}) \choose k_r}$ opções para este passo.
+\end{enumerate}
+Assim, pelo princípio fundamental da contagem, o número de partições de $A$ em $r$ subconjuntos $\{A_1,A_2,\dots,A_r\}$ de modo que $|A_1|=k_1,\dots,|A_r|=k_r$ com $k_1+k_2+\dots+k_r=n$ é
+\begin{align}
+& {n \choose k_1}{n-k_1 \choose k_2} \dots {n-(k_1+\dots+k_{r-1} ) \choose k_r}  \\
+& \hspace{2.6cm}
+= \frac{n!}{k_1!(n-k_1)!}\frac{(n-k_1)!}{k_2!(n-k_1-k_2)!} \dots \frac{(n-(k_1+\dots+k_{r-1}))!}{k_r!(n-(k_1+\dots+k_{r}))!} &\\
+& \hspace{2.6cm} = \frac{n!}{k_1!k_2!\dots k_r!} \,,
+\end{align}
+onde a última igualdade ocorre pela simplificação das frações e observando que 
+$(n-(k_1+\dots+k_{r}))!=(n-n)!=0!=1.$
+\end{proof}
+
+\subsection{Amostragem}
+
+Selecionar um subconjunto de um conjunto maior também é chamado de amostragem. A amostragem nos permite usar informações sobre um pequeno grupo para fazer inferências sobre as propriedades ou preferências de um grupo maior. É uma ferramenta fundamental em estatísticas. Quando a população é "homogênea" (cada pessoa no grupo provavelmente tem as mesmas propriedades ou preferências), qualquer amostra escolhida aleatoriamente (com probabilidade uniforme) será representativa do grupo - ainda precisamos usar ferramentas matemáticas avançadas para quantificar a incerteza em nossas inferências sobre uma população, dada o tamanho da amostra, mas esse é o assunto de um módulo diferente. O que gostaríamos de entender agora é como a estrutura de probabilidade nas amostras varia quando a população é mista. Para entender a pergunta, considere o seguinte.
+
+\begin{example}
+\label{amostragem sem reposição}
+O professor de ST120 quer saber até que ponto os alunos entenderam o conceito de espaço de probabilidade. Dado o tamanho da turma, não é possível perguntar a cada aluno individualmente. Em vez disso, eles desejam amostrar um pequeno grupo de alunos e perguntar a eles. Como eles devem escolher os alunos?
+
+Uma solução prática é conversar com alguns dos alunos na sala de aula. No entanto, existe um viés - os alunos que frequentam as aulas têm mais probabilidade de entender os conceitos! Portanto, o professor decide escolher aleatoriamente um número de números de identificação de alunos e enviá-los por e-mail, e vamos supor que todos os alunos respondam. Este seria um grupo representativo, se a turma fosse homogênea. No entanto, sabemos que a turma é composta por dois grupos de $n_1$ alunos de Matemática e $n_2$ alunos de Ciência da Computação. Para entender o viés, o professor precisa calcular a probabilidade de o grupo acabar com $k_1$ alunos de Matemática e $k_2$ alunos de Ciência da Computação. Qual seria essa probabilidade?
+
+Existem $\binom{n_1}{k_1}$ maneiras de escolher $k_1$ alunos de Matemática e $\binom{n_2}{k_2}$ de escolher $k_2$ alunos de Ciência da Computação. Portanto, a cardinalidade do conjunto de todos os grupos de $k_1$ alunos de Matemática e $k_2$ alunos de Ciência da Computação será 
+\[
+\binom{n_1}{k_1}\binom{n_2}{k_2}
+\]
+A cardinalidade do conjunto de todos os grupos de $k_1+k_2$ alunos será $\binom{n_1+n_2}{k_1+k_2}$. Portanto, a probabilidade de escolher um grupo com $k_1$ alunos de Matemática e $k_2$ alunos de Ciência da Computação é
+\begin{equation}
+\frac{\binom{n_1}{k_1}\binom{n_2}{k_2}}{\binom{n_1+n_2}{k_1+k_2}}. %\qedhere
+\end{equation}
+O próximo passo seria usar essa probabilidade para remover o viés, mas eles precisarão consultar os professores de módulos de estatísticas mais avançados sobre como fazer isso!
+\end{example}
+
+O exemplo acima é um caso de amostragem de uma população de tamanho $n \in \N$, que tem $n_1 \in \N$ ($n_1 \leq n$) indivíduos do tipo 1 e $n_2 = n-n_1$ indivíduos do tipo 2. Retiramos uma amostra de tamanho $k<N$ da população inteira 'aleatoriamente' {\it sem reposição} (ou seja, um indivíduo não pode ser escolhido duas vezes). Então, a probabilidade de a amostra conter $k_1$ indivíduos do tipo 1 e $k_2$ indivíduos do tipo 2 é dada por 
+\begin{equation}
+\label{probabilidade sem reposição}
+\frac{\binom{n_1}{k_1}\binom{n_2}{k_2}}{\binom{n}{k}}. 
+\end{equation}
+
+\begin{exercise}
+    Construa o espaço de probabilidade uniforme correspondente à amostragem sem reposição de uma população com dois tipos de indivíduos e prove \eqref{probabilidade sem reposição}. 
+    Em outras palavras, forneça o triplo $(\Omega,\cF,\Pb)$ de acordo com a proposição \ref{prob_prop}, de modo que, todas as realizações $\omega\in\Omega$ tenham a mesma probabilidade. O evento de interesse $\omega$ é o conjunto de todas as combinações que contêm $k_1$ números de $1$ a $n_1$ e $k_2 = k - k_1$ números de $n_1+1$ a $n$.   
+\end{exercise}
+
+\begin{example}
+\label{amostragem com reposição}
+Agora considere o seguinte problema: um biólogo ambiental está estudando o peso de uma espécie específica de peixe. Para fazer isso, eles retiram uma amostra dessa população de peixes, pesam os peixes e depois os liberam de volta à natureza. Suponha que não há maneira de saber se um peixe já foi amostrado. Além disso, suponha que a população consiste apenas em dois tipos de peixes - machos e fêmeas - que têm pesos médios ligeiramente diferentes e isso precisa ser levado em consideração ao remover o viés.
+
+Se a população inteira de peixes for $n$, com $n_1$ machos e $n_2 = n-n_1$ fêmeas e o tamanho da amostra for $k$, qual é a probabilidade de ter $k_1$ machos e $k_2$ fêmeas na amostra?
+
+A diferença entre este exemplo e o exemplo \ref{amostragem sem reposição} é que agora os indivíduos podem ser escolhidos mais de uma vez. Como resultado, não é mais suficiente determinar apenas as posições dos indivíduos do tipo 1 na amostra, mas também precisamos especificar os indivíduos para que possamos acompanhar os escolhidos repetidamente. Portanto, passamos pelo seguinte processo:
+\begin{itemize}
+    \item Escolha a posição dos machos (as posições restantes serão ocupadas pelas fêmeas) - há $\binom{k}{k_1}$ escolhas.
+    \item Escolha os machos que são escolhidos - há $n_1^{k_1}$ escolhas.
+    \item Escolha as fêmeas que são escolhidas - há $n_2^{k_2}$ escolhas.
+\end{itemize}
+Portanto, o número de amostras diferentes com $k_1$ machos e $k_2$ fêmeas será 
+\[
+\binom{k}{k_1} n_1^{k_1} n_2^{k_2}.
+\]
+Dado que o número total de amostras possíveis é $n^k$, a probabilidade de escolher $k_1$ machos e $k_2$ fêmeas será dada por 
+\begin{equation}
+\label{probabilidade com reposição}
+\frac{\binom{k}{k_1} n_1^{k_1} n_2^{k_2}}{n^k} = \binom{k}{k_1} \, \left(\frac{n_1}{n}\right)^{k_1} \left(1-\frac{n_1}{n}\right)^{k-k_1}. 
+\end{equation}
+\end{example}
+
+O acima é um exemplo de amostragem de uma população de tamanho $n \in \N$, que possui $n_1 \in \N$ ($n_1 \leq n$) indivíduos do tipo 1 e $n_2 = n-n_1$ indivíduos do tipo 2. Nós tiramos uma amostra de tamanho $k<N$ da população inteira 'aleatoriamente' {\it com reposição} (ou seja, um indivíduo pode ser escolhido duas vezes). Então, a probabilidade de a amostra conter $k_1$ indivíduos do tipo 1 e $k_2 = k-k_1$ indivíduos do tipo 2 é dada por \eqref{probabilidade com reposição}.
+
+\begin{exercise}
+    Construa o espaço de probabilidade uniforme correspondente à amostragem com reposição de uma população com dois tipos de indivíduos e prove \eqref{probabilidade com reposição}.
+    Agora, o evento de interesse $\omega$ é o conjunto de todas as sequências que contêm $k_1$ números de $1$ a $n_1$ e $k_2 = k - k_1$ números de $n_1+1$ a $n$.   
+\end{exercise}
+
+\begin{exercise}
+As probabilidades de amostragem não devem ser sensíveis a qual tipo foi considerado '1' e qual tipo foi considerado '2'.
+De fato,
+\[
+\binom{k}{k_1} \Big(\frac{n_1}{n}\Big)^{k_1} \Big(1-\frac{n_1}{n}\Big)^{k-k_1}
+=
+\binom{k}{k_2} \Big(\frac{n_2}{n}\Big)^{k_2} \Big(1-\frac{n_2}{n}\Big)^{k-k_2}.
+\]
+Supondo que $k_1+k_2=k$ e $n_1+n_2=n$, verifique a identidade acima.
+\end{exercise}
+
+\subsection*{Revisão de Combinatória}
+
+Conjunto finito $ A $, $ n=|A| $.
+
+Sequências de comprimento $ k $ de elementos de $ A $:
+$$ |S_{n,k}(A)| = n^k ,$$
+pois para especificar um elemento de
+$ S_{n,k}(A) $, precisamos fazer $ k $ escolhas, e em cada escolha temos $ n $ opções.
+
+Permutações (ou reorganizações) de elementos de $ A $:
+$$ n! ,$$
+pois precisamos fazer $ n $ escolhas, e a cada escolha o número de opções diminui.
+(leia-se "fatorial de $ n $")
+
+Ordenação de comprimento $ k $ de elementos de $ A $:
+$$ |O_{n,k}(A) | = \frac{n!}{(n-m)!} , $$
+porque podemos obter qualquer elemento de $ O_{n,k}(A) $ permutando os elementos de $ A $, mantendo os primeiros $ m $ elementos e esquecendo a ordem dos $ n-m $ restantes.
+
+Subconjuntos de $ A $ com cardinalidade $ k $:
+$$ |C_{n,k}(A)| = \binom{n}{k} = \frac{n!}{k! (n-k)!} , $$
+pois podemos obter qualquer elemento de $ C_{n,k}(A) $ tomando os primeiros $ m $ elementos em uma permutação de $ A $, mantendo os primeiros $ m $ elementos e depois esquecendo a ordem desses $ m $ elementos, assim como os $ n-m $ restantes.
+(leia-se "combinação de $ n $ escolha $ k $")
+
+Decomposição de $ A $ em conjuntos \emph{rotulados} $ A_1, \dots, A_r $ de modo que $ |A_j|=k_j $ para $ j=1, \dots, r $, onde $ k_1+\dots+k_r = n $.
+$$ \frac{n!}{k_1!k_2!\cdots k_r!} , $$
+pois podemos obter a partição primeiro permutando todos os elementos de $ A $, tomando $ A_1 $ como os primeiros $ k_1 $ elementos dessa permutação, $ A_2 $ como os próximos $ k_2 $ elementos e assim por diante, e depois esquecendo a ordem de cada bloco.
+Este é o número de maneiras pelas quais $ n $ bolas rotuladas podem ser distribuídas em $ r $ baldes rotulados sob a restrição de que, para cada $ j = 1, \dots, r $, o balde número $ j $ recebe $ k_j $ bolas.
+As combinações $ C_{n,k}(A) $ são apenas um caso particular de dois baldes rotulados como "dentro" e "fora".
+
+Para fornecer uma justificação mais rigorosa para os termos no denominador (que chamamos de "esquecer a ordenação"), podemos obter o número raciocinando de trás para frente, como segue. Vamos produzir uma permutação de $A = \{1, \dots, n\}$ de duas maneiras. A primeira maneira tem três etapas:
+\begin{enumerate}
+\item
+Escolher $k$ elementos de $A$ para irem primeiro, e deixar os $n-k$ restantes irem depois.
+Existem $x$ possibilidades.
+\item
+Permutar os primeiros $k$ elementos.
+Existem $k!$ possibilidades.
+\item
+Permutar os elementos restantes $n-k$.
+Existem $(n-k)!$ possibilidades.
+\end{enumerate}
+No total, existem $x \cdot k! \cdot (n-k)!$ possibilidades.
+A segunda maneira é direta: apenas permutar os $n$ elementos já existentes, existem $n!$ possibilidades.
+Portanto, $n! = x \cdot k! \cdot (n-k)!$, então acabamos de descobrir o que é $x$!
+Portanto, $ |C_{n,k}(A)| = \frac{n!}{k!(n-k)!}$.
+
+\textbf{Revisão de Amostragem}
+
+População com $n = n_1 + n_2$ indivíduos,
+onde
+$n_1$ são indivíduos do Tipo~1
+e
+$n_2$ são indivíduos do Tipo~2.
+
+Se tirarmos uma amostra de $k$ indivíduos, \emph{sem reposição}, então a chance de escolher $k_1$ elementos do Tipo~1 (e, portanto, $k_2=k-k_1$ indivíduos do Tipo~2) é
+$$
+\frac{\binom{n_1}{k_1} \cdot \binom{n_2}{k_2}}{\binom{n}{k}}
+.
+$$
+Isso pode ser obtido assumindo que os indivíduos foram amostrados simultaneamente (então $|\Omega|=\binom{n}{k}$) ou um após o outro (então $|\Omega|=\frac{n!}{(n-k)!}$), e ambas as abordagens fornecem a mesma probabilidade (como esperado!).
+De fato, a segunda abordagem fornece
+\[
+\frac{\binom{k}{k_1}\frac{n_1!}{(n_1-k_1)!}\frac{n_2!}{(n_2-k_2)!}}{\frac{n!}{(n-k)!}}
+\]
+que se simplifica para a primeira fórmula se expandirmos o primeiro termo.
+
+Se tirarmos uma amostra de $k$ indivíduos, \emph{com reposição}, então a chance de escolher $k_1$ elementos do Tipo~1 (e, portanto, $k_2=k-k_1$ indivíduos do Tipo~2) é
+$$
+\binom{k}{k_1}
+\Big(\frac{n_1}{n}\Big)^{k_1}
+\Big(1-\frac{n_1}{n}\Big)^{k_2}
+.
+$$
+Isso só pode ser alcançado assumindo que os indivíduos foram amostrados um após o outro, para que possamos devolvê-los à população (então $|\Omega|=n^k$).
+A fórmula acima é obtida após reescrever
+$$ \frac{\binom{k}{k_1}n_1^{k_1}n_2^{k_2}}{n^k} $$ de uma forma mais conveniente (ou significativa).
+
+Observe que, se $X$ denota o número de indivíduos do Tipo~1 na amostra com reposição, então
+\[
+X \sim \Bin(k,\tfrac{n_1}{n})
+,
+\]
+o que pode ser verificado combinando a fórmula acima com a função de massa de probabilidade de uma variável aleatória binomial.

@@ -1,0 +1,54 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% See copyright.tex for the copyright statement.
+
+\documentclass[]{article}
+
+
+% TROCAR PELO SEU PRÓPRIO NOME:
+\newcommand{\myauthor}{Leonardo~T.~Rolla}
+
+% TROCAR PELO SEU PRÓPRIO REPOSITÓRIO:
+\newcommand{\mysourceurl}{\url{https://github.com/REA-Stat/apostila-probab} e \url{https://www.overleaf.com/read/pscdjdqjzbhc}}
+
+
+\input{macros}
+
+\newtheorem{exercise}{Exercício}[section]
+\newtheorem*{exercise*}{Exercício}
+
+%\geometry{paperheight=600pt,vmarginratio=1:2,paperwidth=365pt}
+%\geometry{width=345pt,height=550pt,centering,a4paper}
+
+
+\begin{document}
+
+\input{cover}
+
+\input{copyright}
+\cleardoublepage
+{\setlength{\parskip}{0em}\tableofcontents}
+\setlength{\parskip}{.5em plus 2pt}
+\cleardoublepage
+
+\newcommand{\block}[1]{\clearpage \ \vfill {\Huge \centering #1 \par } \addcontentsline{toc}{section}{#1} \ \vfill \vfill \clearpage}
+
+\input{Week1.tex}
+\input{Week2.tex}
+\input{Week3.tex}
+\input{Week4.tex}
+\input{Week5.tex}
+\input{Week6.tex}
+\input{Week7.tex}
+\input{Week8.tex}
+\input{Week9.tex}
+\input{Week10.tex}
+
+\input{sums.tex}
+
+\end{document}
+
+
+

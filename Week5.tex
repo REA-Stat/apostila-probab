@@ -1,0 +1,331 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\clearpage
+\section{Esperança}
+
+Se lançarmos um dado justo muitas vezes, esperamos que cada um dos seis resultados possíveis apareça cerca de um sexto do tempo, e assim a média dos números obtidos seria aproximadamente
+\[
+\frac{1}{6} \cdot 1 +
+\frac{1}{6} \cdot 2 +
+\frac{1}{6} \cdot 3 +
+\frac{1}{6} \cdot 4 +
+\frac{1}{6} \cdot 5 +
+\frac{1}{6} \cdot 6
+=
+\frac{7}{2}
+.
+\]
+Chamamos esse número de \emph{esperança} de $ X $.
+
+\subsection{Definição e exemplos}
+
+\begin{definition}
+[Esperança]
+Seja $ X $ uma variável aleatória discreta.
+Definimos a \emph{esperança} de $ X $, denotada por $ \E[X] $, como o número real dado por
+\[
+\E[X]
+=
+\sum_{x : \Pb(X=x)>0 } x \cdot \Pb(X=x)
+,
+\]
+desde que essa soma convirja absolutamente, caso contrário $ \E[X] $ não está definida.
+\end{definition}
+
+\begin{terminology*}
+Dizer que $ \sum_n a_n $ \emph{converge absolutamente} significa que $ \sum_n |a_n| $ converge.
+\end{terminology*}
+
+\begin{definition}
+[Integrável]
+Dizemos que uma variável aleatória discreta $ X $ é \emph{integrável} se a sua esperança estiver definida, ou seja, se a soma
+\[
+\sum_{x : \Pb(X=x)>0 } |x| \cdot \Pb(X=x)
+\]
+for convergente.
+\end{definition}
+
+\begin{notation*}
+O fato de que $ \E[X] $ depende de $ X $ fica evidente pelo fato de "X" aparecer em "$ \E[X] $" e o fato de que depende de $ \Pb $ fica em parte aparente pelo uso da mesma fonte em "$ \E $" e "$ \Pb $".
+\end{notation*}
+
+\begin{example}
+\label{example:quatromoedas}
+Lance uma moeda justa $ 4 $ vezes e conte o número de caras.
+\begin{align}
+\E[X] &= 
+0 \cdot \Pb(X=0) +
+1 \cdot \Pb(X=1) +
+2 \cdot \Pb(X=2) + {}
+\\ & \quad \quad +
+3 \cdot \Pb(X=3) +
+4 \cdot \Pb(X=4)
+\\
+&=
+0 \cdot \frac{1}{16} + 1 \cdot \frac{4}{16} + 2 \cdot \frac{6}{16} + 3 \cdot \frac{4}{16} + 4 \cdot \frac{1}{16}
+\\
+&
+= 2
+.
+\end{align}
+\end{example}
+
+\begin{example}
+[Função indicadora]
+Seja $ A \in \cF $ e defina $ X $ como
+\[
+X(\omega) =
+\begin{cases}
+1 ,& \omega \in A,
+\\
+0 ,& \omega \in A^c.
+\end{cases}
+\]
+Uma função assim é chamada de \emph{função indicadora} do conjunto $ A $ e é denotada por $ \I_A $.
+Nesse caso,
+$\E [X] = 0 \times \Pb(A^c) + 1 \times \Pb(A) = \Pb(A)$.
+Ou seja,
+\[
+\E [\I_A] = \Pb(A).
+\]
+\end{example}
+
+\begin{example}
+\label{example:dadosoma}
+Lance um dado justo duas vezes e some os valores observados.
+\begin{align}
+\E [X] &= 2 \times \frac{1}{36} + 3 \times \frac{2}{36} + 4 \times \frac{3}{36} + 5 \times \frac{4}{36} + 6 \times \frac{5}{36} + 7 \times \frac{6}{36}
++
+{}
+\\
+&
+\qquad
++
+8 \times \frac{5}{36} + 9 \times \frac{4}{36} + 10 \times \frac{3}{36} + 11 \times \frac{2}{36} + 12 \times \frac{1}{36}
+=
+7.
+\qedhere
+\end{align}
+\end{example}
+
+\begin{example}
+\label{example:trescartas}
+Pegue $ 3 $ cartas de um baralho de $ 52 $ cartas, uma após a outra e sem reposição, e conte quantas são damas de ouros.
+\begin{align}
+\E [X]
+=
+0 \times \frac{48\cdot47\cdot46}{52\cdot51\cdot50}
+&
++ 1 \times \frac{3\cdot48\cdot47\cdot4}{52\cdot51\cdot50} +
+{}
+\\
+&
++
+2 \times \frac{3\cdot48\cdot4\cdot3}{52\cdot51\cdot50} + 3 \times \frac{4\cdot3\cdot2}{52\cdot51\cdot50}
+=
+\frac{3}{13}
+.
+\qedhere
+\end{align}
+\end{example}
+
+\begin{example}
+[Poisson]
+Se $X\sim\Poisson(\lambda)$, então
+\begin{align}
+\E [X]
+&
+=
+\sum_{n=0}^\infty n \frac{\lambda^n e^{-\lambda}}{n!}
+=
+\sum_{n=1}^\infty \frac{\lambda^n e^{-\lambda}}{(n-1)!}
+=
+\\
+&=
+\lambda e^{-\lambda}
+\sum_{n=1}^\infty \frac{\lambda^{n-1}}{(n-1)!}
+=
+\lambda e^{-\lambda}
+\sum_{k=0}^\infty \frac{\lambda^k}{k!}
+=
+\lambda e^{-\lambda} e^\lambda
+=
+\lambda.
+\end{align}
+Portanto, a esperança de uma variável aleatória distribuída como $\Poisson(\lambda)$ é $\lambda$.
+\end{example}
+
+\begin{example}
+[Binomial]
+\label{example:bernoulliesp}
+Se $X\sim \Binom(n,p)$, então
+\begin{align}
+\E [X]
+&
+= \sum_{k=0}^n k \binom{n}{k} p^k (1-p)^{n-k}
+= \sum_{k=1}^n n \binom{n-1}{k-1} p^k (1-p)^{n-k}
+\\ &
+= n \sum_{j=0}^{n-1} \binom{n-1}{j} p^{j+1} (1-p)^{n-j-1} = np \sum_{j=0}^{n-1} \binom{n-1}{j} p^{j} (1-p)^{n-1-j}
+\\ &
+= np [p + (1-p)]^{n-1}
+= np.
+\qedhere
+\end{align}
+\end{example}
+
+\begin{example}
+[Geométrica]
+Suponha que $X\sim \Geom(p)$.
+Vamos calcular
+\[
+\E[X] = \sum_{n=1}^{\infty} n (1-p)^{n-1}p
+\]
+através da diferenciação de uma série de potências.
+Escrevendo $ x = 1-p $, podemos desenvolver da seguinte forma:
+\begin{align}
+\E[X]
+&=
+\sum_{n=1}^\infty n \cdot p \cdot (1-p)^{n-1}
+=
+p
+\sum_{n=0}^\infty n \cdot x^{n-1}
+\\
+&
+=
+p
+\sum_{n=0}^\infty \frac{\dd}{\dd x} \big[x^n\big]
+=
+p
+\cdot
+\frac{\dd}{\dd x} \Big[\sum_{n=0}^\infty x^n \Big]
+=
+p
+\cdot
+\frac{\dd}{\dd x} \, \Big[\frac{1}{1-x}\Big]
+\\
+&
+=
+p \cdot \Big(- (1-x)^{-2} \Big) \cdot (-1)
+=
+\frac{1}{p}.
+\end{align}
+Portanto, a esperança de uma variável aleatória distribuída como $\Geom(p)$ é $\frac{1}{p}$.
+Sabemos que a série de potências $ \sum_n x^n $ converge se $ |x|<1 $, e estamos aceitando uma propriedade que diz que a série de potências pode ser diferenciada termo a termo dentro desse intervalo.
+\end{example}
+
+\subsection{Propriedades da esperança}
+
+Nos exemplos acima,
+$
+2
+=
+\frac{1}{2}
++
+\frac{1}{2}
++
+\frac{1}{2}
++
+\frac{1}{2}
+$,
+$
+7
+=
+\frac{7}{2}
++
+\frac{7}{2}
+$,
+$
+\frac{3}{13}
+=
+\frac{1}{13}
++
+\frac{1}{13}
++
+\frac{1}{13}
+$,
+e
+$ np = p+\dots + p $.
+Isso não é uma coincidência.
+Vem do fato de que
+\[
+\E[X+Y]
+=
+\E[X]
++
+\E[Y]
+\]
+para variáveis aleatórias discretas integráveis $ X $ e $ Y $.
+
+\begin{theorem}
+Sejam $ X $ e $ Y $ variáveis aleatórias discretas integráveis definidas no mesmo espaço de probabilidade $ (\Omega, \cF, \Pb) $.
+Então:
+\begin{enumerate}[$(1)$]
+\item
+$ \E[\I_A] = \Pb(A) $ para todo $ A \in \cF $,
+\item
+Se $ 0 \leq Z \leq X $ para todo $ \omega\in\Omega $, então $ 0 \leq \E[Z] \leq \E[X] $,
+\item
+$ \E[aX + bY] = a\E[X] + b\E[Y] $.
+\end{enumerate}
+\end{theorem}
+
+Dizemos que a expectativa é \emph{unitária, monótona} e \emph{linear}.
+
+Veremos uma prova mais adiante.
+
+\begin{example}
+No Exemplo~\ref{example:quatromoedas},
+podemos definir $ X_1 $, $ X_2 $, $ X_3 $ e $ X_4 $ como a função indicadora dos eventos em que o primeiro, segundo, terceiro e quarto lançamentos da moeda resultaram em Caras, respectivamente.
+Como $X = X_1 + X_2 + X_3 + X_4$, podemos obter a expectativa usando a linearidade, como em
+\[
+\E [X] = \E [X_1] + \E [X_2] + \E [X_3] + \E [X_4] = \frac{1}{2} + \frac{1}{2} + \frac{1}{2} + \frac{1}{2} = 2,
+\]
+em vez de calcular a função de massa de probabilidade de $ X $.
+\end{example}
+
+\begin{example}
+No Exemplo~\ref{example:dadosoma}, observe que $X = Y+Z$, onde $Y$ e $Z$ representam o resultado do primeiro e do segundo dados.
+Assim,
+\[
+\E [X] = \E [Y] + \E [Z] = \frac{7}{2} + \frac{7}{2} = 7.
+\qedhere
+\]
+\end{example}
+
+\begin{example}
+No Exemplo~\ref{example:trescartas}, observe que $X = X_1 + X_2 + X_3$, onde $X_k$ é a indicadora de se a $k$-ésima carta é uma rainha.
+Diferentemente dos exemplos anteriores, observe que aqui $X_1$, $X_2$ e $X_3$ não são "independentes"
+(uma noção precisa de independência será introduzida mais adiante).
+No entanto, cada uma delas individualmente satisfaz $\E [X_k] = \frac{1}{13}$, e podemos calcular
+\[
+\E [X] = \E [X_1] + \E [X_2] + \E [X_3] = \frac{3}{13}.
+\qedhere
+\]
+\end{example}
+
+\begin{example}
+No Exemplo~\ref{example:bernoulliesp}, observe que $X$ tem a mesma distribuição que $X_1+\cdots+X_n$, onde cada $X_k$ é distribuída como $\Bernoulli(p)$, e, portanto,
+\[
+\E [X] = \E [X_1] + \cdots + \E [X_n] = (p+\cdots+p) = np.
+\qedhere
+\]
+\end{example}
+
+Nos exemplos anteriores, foi mais fácil calcular a expectativa usando a linearidade do que usando a distribuição de $X$. Em muitos outros casos, descrever a distribuição de $X$ de uma forma que nos permita calcular a expectativa pode ser muito difícil ou até mesmo impraticável, mas ainda assim pode ser possível calcular a expectativa usando a linearidade.
+
+\begin{example}
+Uma gaveta contém $10$ pares de meias, todos diferentes entre si.
+Alguém abre a gaveta no escuro e retira $6$ meias dela.
+Qual é a expectativa de $X$, o número de pares formados pelas meias retiradas?
+É mais conveniente supor que as meias sejam retiradas em ordem, da $1$-ª à $6$-ª.
+Vamos contar quantas delas têm um par que também foi retirado.
+Isso dará um número $N$ que é o dobro do número de pares, porque cada par será contado duas vezes, então $N = 2X$.
+Observe que $N = X_1 + \cdots + X_6$, onde $X_k = \I_{A_k}$ e $A_k$ é o evento de que o par da $k$-ésima meia retirada também foi retirado.
+Então $ \Pb(A_k) = \frac{5}{19} $ (exercício!) e, portanto, $ \E[N] = \E[X_1]+\dots+\E[X_6] = 6 \cdot \frac{5}{19}$.
+Portanto, $ \E[X] = \E[\frac{N}{2}] = \frac{15}{19} $.
+A combinatorial envolvida em mostrar que $ \Pb(A_k)=\frac{5}{19} $ pode não ser muito fácil, mas é muito mais fácil do que descrever a distribuição de $N$.
+\end{example}

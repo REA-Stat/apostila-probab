@@ -1,0 +1,563 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\subsection{Independência}
+
+\begin{definition}
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade.
+Dizemos que os eventos $A$ e $B$ são \emph{independentes}
+se
+$ \Pb(A \cap B) = \Pb(A) \cdot \Pb(B). $
+\end{definition}
+
+Uma maneira de pensar na independência é que o conhecimento sobre a ocorrência de um dos eventos não aumentará nem diminuirá a chance de o outro ocorrer.
+De fato, assumindo que $ \Pb(B)>0 $, você pode verificar que $ A $ e $ B $ são independentes se e somente se $ \Pb(A|B)=\Pb(A) $ (exercício!).
+Em particular, se $ A $ e $ B $ são independentes, então $ A^c $ e $ B $ também são independentes.
+
+\begin{remark}
+As noções de eventos "independentes" e "disjuntos" são muito diferentes.
+Na verdade, essas noções são normalmente incompatíveis: dois eventos disjuntos são independentes se e somente se a probabilidade de um deles for $0$ (exercício!).
+\end{remark}
+
+\begin{definition}
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade e $A_1, A_2, \dots, A_n$ sejam eventos. 
+Dizemos que os eventos $A_1, \dots, A_n$ são
+\emph{mutuamente independentes aos pares} se $ A_j $ e $ A_k $ forem independentes para todas as escolhas de $ j $ e $ k $ distintos.
+Dizemos que os eventos $A_1, \dots, A_n$ são \emph{mutuamente independentes},
+se
+\[
+\Pb(A_{j_1}\cap A_{j_2} \cap \dots \cap A_{j_k})
+=
+\Pb(A_{j_1})
+\Pb(A_{j_2})
+\cdots
+\Pb(A_{j_k})
+\]
+para todo $ k = 2,\dots,n $ e para todas as escolhas de $ 1 \leq j_1<j_2< \dots < j_k\leq n $.
+\end{definition}
+
+No caso em que $ n = 2 $, independência aos pares é obviamente o mesmo que independência mútua.
+No caso em que $ n = 3 $, independência aos pares significa
+\begin{align}
+&
+\Pb(A_1 \cap A_2) = \Pb(A_1) \cdot \Pb(A_2)
+\\
+&
+\Pb(A_1 \cap A_3) = \Pb(A_1) \cdot \Pb(A_3)
+\\
+&
+\Pb(A_2 \cap A_3) = \Pb(A_2) \cdot \Pb(A_3)
+.
+\end{align}
+enquanto independência mútua significa
+\begin{align}
+&
+\Pb(A_1 \cap A_2) = \Pb(A_1) \cdot \Pb(A_2)
+\\
+&
+\Pb(A_1 \cap A_3) = \Pb(A_1) \cdot \Pb(A_3)
+\\
+&
+\Pb(A_2 \cap A_3) = \Pb(A_2) \cdot \Pb(A_3)
+\\
+&
+\Pb(A_1 \cap A_2 \cap A_3) = \Pb(A_1) \cdot \Pb(A_2) \cdot \Pb(A_3)
+.
+\end{align}
+Isso ilustra que a independência mútua é mais forte do que a independência aos pares.
+É difícil listar as condições para valores maiores de $ n $.
+Por exemplo, se $ n = 5 $, a independência aos pares envolve $ \binom{5}{2} = 10 $ condições a serem verificadas, e a independência mútua envolve $ 2^5-5-1 = 26 $ condições a serem verificadas.
+
+\begin{example}
+Dois dados são lançados. Sejam
+\begin{align}
+A_1 &= \{ \text{o primeiro dado é par} \} \\
+A_2 &= \{ \text{o segundo dado é ímpar} \} \\
+A_3 &= \{ \text{soma dos dados é } 7\}.
+\end{align}
+Esses eventos são independentes aos pares, pois
+\begin{align}
+&
+\Pb(A_1 \cap A_2) = \frac{1}{4} = \Pb(A_1) \cdot \Pb(A_2)
+\\
+&
+\Pb(A_1 \cap A_3) = \frac{1}{12} = \Pb(A_1) \cdot \Pb(A_3)
+\\
+&
+\Pb(A_2 \cap A_3) = \frac{1}{12} = \Pb(A_2) \cdot \Pb(A_3)
+.
+\end{align}
+Isso significa que, para cada par de eventos dessa família, o conhecimento sobre a ocorrência de um deles não afetará as chances de que os outros dois ocorram.
+Em particular, nem $ A_1 $ nem $ A_2 $ isoladamente afetarão as chances de $ A_3 $.
+No entanto, saber que $ A_1 $ e $ A_2 $ ocorrem aumentará de fato a chance de que $ A_3 $ ocorra, como
+\[
+\Pb(A_3 | A_1 \cap A_2) = \frac{1}{3} \ne \frac{1}{6} = \Pb(A_3)
+.
+\]
+De maneira mais formal,
+\[
+\Pb(A_1 \cap A_2 \cap A_3) = \frac{1}{12} \ne \frac{1}{24} =
+\Pb(A_1 \cap A_2 \cap A_3) = \Pb(A_1) \cdot \Pb(A_2) \cdot \Pb(A_3)
+.
+\]
+\end{example}
+
+\begin{example}
+Lance três moedas justas.
+Considere os eventos:
+\begin{align}
+&
+A_1 = \text{Primeira moeda dá Cara}
+\\
+&
+A_2 = \text{Segunda moeda dá o mesmo que a primeira moeda}
+\\
+&
+A_3 = \text{Segunda moeda dá o mesmo que a terceira moeda}
+\\
+&
+A_4 = \text{Terceira dá Coroa}
+\end{align}
+Então:
+\\
+Esses eventos são independentes aos pares.
+\\
+$ A_1 $, $ A_2 $ e $ A_3 $ são mutuamente independentes.
+\\
+$ A_1 $, $ A_2 $, $ A_3 $ e $ A_4 $ não são mutuamente independentes.
+\end{example}
+
+
+\clearpage
+\section{Variáveis Aleatórias}
+
+\subsection{Definição}
+
+Com frequência, estamos interessados em uma quantidade que é determinada como resultado de um experimento dado.
+
+Por exemplo, considere um jogo de azar em que dois dados são lançados e você recebe uma recompensa em dinheiro dada pelo valor máximo obtido entre os dois dados.
+Como você modela essa situação?
+Como de costume, cada resultado é um par $ \omega = (\omega_1, \omega_2) $ onde ambos $ \omega_1 $ e $ \omega_2 $ estão em $ \{1,2,3,4,5,6\} $.
+Isso é, $ \Omega = \{1,2,3,4,5,6\}^2 = \{1,2,3,4,5,6\} \times \{1,2,3,4,5,6\} $.
+A recompensa é determinada pelos valores de $ \omega_1 $ e $ \omega_2 $ por meio da tabela a seguir:
+\[
+\begin{array}{r|rrrrrr}
+  & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+1 & \pounds1 & \pounds2 & \pounds3 & \pounds4 & \pounds5 & \pounds6 \\
+2 & \pounds2 & \pounds2 & \pounds3 & \pounds4 & \pounds5 & \pounds6 \\
+3 & \pounds3 & \pounds3 & \pounds3 & \pounds4 & \pounds5 & \pounds6 \\
+4 & \pounds4 & \pounds4 & \pounds4 & \pounds4 & \pounds5 & \pounds6 \\
+5 & \pounds5 & \pounds5 & \pounds5 & \pounds5 & \pounds5 & \pounds6 \\
+6 & \pounds6 & \pounds6 & \pounds6 & \pounds6 & \pounds6 & \pounds6 \\
+\end{array}
+\]
+A palavra-chave aqui é 'determinada': mesmo que o resultado seja aleatório, ele é aleatório apenas porque o resultado $ \omega $ é aleatório.
+
+Matematicamente, isso significa que o prêmio $ X $ pode ser escrito como uma \emph{função} do resultado $ \omega $.
+Em geral, uma variável aleatória é uma função
+\[
+X : \Omega \to \R
+\]
+do espaço amostral para o conjunto dos números reais.
+Mais formalmente, exigimos que as condições especificadas em termos de $ X $ sejam eventos aleatórios, ou seja, eventos que o observador pode determinar se ocorrem ou não.
+
+\begin{definition}
+[Variável Aleatória]
+Sejam $ (\Omega,\cF,\Pb) $ um espaço de probabilidade.
+Uma \emph{variável aleatória} é uma função $ X : \Omega \to \R $
+tal que $ \{ \omega\in\Omega:X(\omega) \leq a \} \in \cF $ para todo $ a \in \R $.
+\end{definition}
+
+No exemplo acima, podemos escrever $ X $ explicitamente como a função que atribui a cada par $ (\omega_1, \omega_2) $ o valor máximo entre eles, ou seja, $ X((x,y)) = \max\{x,y\} $.
+
+Usando essa ferramenta, podemos fazer afirmações como
+\[
+\Pb(X=1) = \frac{1}{36}, \ \Pb(X=5)=\frac{1}{4}, \ \dots
+\]
+
+\begin{notation*}
+Por conveniência, usaremos a notação simplificada
+\[
+\{X = 5\} = \{\omega\in\Omega:X(\omega)=5\}
+,
+\
+\
+\text{ e }
+\Pb(X=5) = \Pb(\{X=5\})
+,
+\
+\
+\text{etc.}
+\]
+\end{notation*}
+
+É muito útil considerar a medida de probabilidade no conjunto dos números reais induzida por uma variável aleatória.
+Se estamos interessados apenas no valor de $ X $, podemos deixar $ (\Omega,\cF,\Pb) $ de lado e tomar o espaço amostral como $ \R $.
+
+\begin{definition}
+[Distribuição]
+A \emph{distribuição} de uma variável aleatória $ X $ é a medida de probabilidade em $ \R $ denotada por $ \Pb_X $ e dada por
+\[
+\Pb_X(B) = \Pb(\{\omega\in\Omega:X(\omega)\in B\})
+\]
+para subconjuntos $ B $ em algum espaço de eventos no conjunto dos números reais.
+\end{definition}
+
+No exemplo anterior, $ \Pb_X(B) $ é determinada por seus valores
+\[
+\Pb_X(\{k\}) = \frac{2k-1}{36}, \ k=1,2,3,4,5,6,
+\quad
+\Pb_X(\R\setminus \{1,2,3,4,5,6\})=0
+.
+\]
+
+\begin{notation*}
+O espaço de eventos em $ \R $, denotado por $ \cB(\R) $, é um espaço de eventos que contém conjuntos como $ \{x\} $ e $ (a,b] $.
+Não entraremos em detalhes sobre a descrição de $ \cB(\R) $.
+Você pode pensar nisso como a coleção de todos os conjuntos que podem ser obtidos aplicando um número contável de operações de conjuntos (união, interseção, complemento) a intervalos.
+\end{notation*}
+
+\begin{remark}
+O espaço $ \Omega $ pode ser mais complicado do que $ \R $.
+Em geral, $ (\R, \cB(\R), \Pb_X) $ pode ser mais simples do que $ (\Omega, \cF, \Pb) $.
+Observe que $ \Pb_X $ foi construído a partir de $ \Pb $ e $ X $.
+No entanto, não é possível reconstruir $ (\Omega, \cF, \Pb) $ nem $ X $ a partir de $ \Pb_X $.
+\end{remark}
+
+\begin{proposition}
+A função $ \Pb_X $ é uma medida de probabilidade em $ \R $.
+\end{proposition}
+\begin{proof}
+Lembrando da Definição~\ref{def:medidadeprob}.
+Verificamos as três condições:
+\begin{enumerate}
+[$ (i) $]
+\item
+$ \Pb_X(B) = \Pb(X \in B) \in [0,1] $.
+\item
+$ \Pb_X(\R) = \Pb(\{\omega \in \Omega : X(\omega) \in \R \})
+= \Pb(\Omega) = 1
+$.
+\item
+Se $ B_1, B_2, B_3, \dots \in \cB(\R) $ são disjuntos, então
+\begin{align}
+\Pb_X\left(\bigcup_{n=1}^{\infty} B_n\right)
+&=
+\Pb\left(\{\omega : X(\omega) \in \bigcup_{n=1}^\infty B_n \} \right)
+\\
+&=
+\Pb\left(\bigcup_{n=1}^\infty \{\omega : X(\omega) \in B_n \} \right)
+\\
+&=
+\textstyle
+\sum_{n=1}^\infty \Pb\left(\{\omega : X(\omega) \in B_n \} \right)
+\\
+&=
+\textstyle
+\sum_{n=1}^\infty \Pb_X(B_n)
+.
+\end{align}
+Nas desigualdades acima, usamos:
+definição de $ \Pb_X $;
+que a pré-imagem da união é a união da pré-imagem;
+que a pré-imagem de conjuntos disjuntos é disjunta, combinada com a aditividade contável de $ \Pb $;
+definição de $ \Pb_X $.
+\end{enumerate}
+Isso prova a proposição.
+\end{proof}
+
+\subsection{Variáveis Aleatórias Discretas}
+
+\begin{definition}
+[Variável Aleatória Discreta]
+Seja $ (\Omega, \cF, \Pb) $ um espaço de probabilidade e $ X $ uma variável aleatória.
+Dizemos que $ X $ e $ \Pb_X $ são \emph{discretos} se existir um conjunto finito ou infinito contável $ S \subseteq \R $ tal que $ \Pb(X \in \R \setminus S) = 0 $.
+\end{definition}
+
+\begin{definition}
+[Função de Massa de Probabilidade]
+Seja $ (\Omega, \cF, \Pb) $ um espaço de probabilidade e $ X $ uma variável aleatória discreta.
+Definimos a \emph{função de massa de probabilidade} de $ X $ como a função $ p_X : \R \to [0,1] $ dada por
+\[
+p_X(x) = \Pb_X(\{x\})
+.
+\]
+\end{definition}
+
+Observe que $ p_X $ é construído a partir de $ \Pb_X $, e $ p_X $ é mais simples do que $ \Pb_X $, porque $ p_X $ recebe como entrada um número e $ \Pb_X $ recebe como entrada um conjunto de números.
+Veremos abaixo que é possível reconstruir $ \Pb_X $ a partir de $ p_X $ no caso em que $ \Pb_X $ é discreto.
+
+\begin{definition}
+[Suporte discreto]
+Seja $ (\Omega,\cF,\Pb) $ um espaço de probabilidade e $ X $ uma variável aleatória discreta.
+Definimos o \emph{suporte discreto} de $ X $, ou, mais precisamente, o suporte discreto de sua distribuição $ \Pb_X $, como o conjunto
+\[
+\{x \in \R : p_X(x) > 0\}.
+\]
+\end{definition}
+
+Como afirmado acima, para estudar $ \Pb_X $, é suficiente conhecer $ p_X $.
+
+\begin{proposition}
+\label{prop:distpmf}
+Seja $ X $ uma variável aleatória discreta.
+Então
+\[
+\Pb_X(B) = \sum_{x \in B \cap D_X} p_X(x)
+\]
+para todo $ B \in \cB(\R) $, onde $ D_X $ denota o suporte discreto de $ X $.
+\end{proposition}
+
+\begin{notation*}
+Antes de escrever a prova, precisamos explicar o significado de $ \sum_{x \in B \cap D} $.
+Uma vez que o conjunto $ B \cap D $ é contável, podemos escrever $ B \cap D = \{x_1,x_2,x_3,\dots\} $, e podemos considerar
+$ \sum_{x \in B \cap D} p_X(x) $
+como
+$ \sum_{k=1}^\infty p_X(x_k) $.
+Precisamos ter cuidado aqui, pois usamos uma "enumeração" arbitrária de $ B \cap D $.
+No entanto, uma vez que os termos na soma são não negativos, outra enumeração significaria reordenar os termos, o que não afeta o valor da soma.
+\end{notation*}
+
+\begin{proof}
+Pela definição de $ \Pb_X $ ser discreta, existe um conjunto contável $ S\subseteq \R $ tal que $ \Pb_X(S^c)=0 $.
+Podemos decompor
+\[
+\Pb_X(B) = \Pb_X(B \cap S) + \Pb_X(B \cap S^c)
+.
+\]
+O segundo termo é zero, porque, uma vez que $ B \cap S^c \subseteq S^c $,
+\[
+0 \leq \Pb_X(B \cap S^c) \leq \Pb_X(S^c) = 0.
+\]
+Portanto,
+\[
+\Pb_X(B)
+=
+\Pb_X(B \cap S)
+=
+\Pb_X(\cup_{x\in B \cap S} \{x\})
+=
+\sum_{x \in B \cap S} \Pb_X(\{x\})
+.
+\]
+Se substituirmos $ D^c $ em vez de $ B $ na fórmula acima, obtemos
+$ \Pb_X(D^c) = \sum_{x \in D^c \cap S} \Pb_X(\{x\}) = 0 $, porque $ \Pb_X(\{x\})=p_X(x)=0 $ para todo $ x \in D^c $.
+
+Pelo mesmo argumento,
+\[
+\Pb_X(B)
+=
+\Pb_X(B \cap D)
++
+\Pb_X(B \cap D^c)
+=
+\Pb_X(B \cap D)
+=
+\sum_{x \in B \cap D} p_X(x)
+,
+\]
+o que é o que queríamos provar.
+\end{proof}
+
+É conveniente especificar a distribuição de uma variável aleatória dizendo o que é $ p_X $.
+Quando dizemos "seja $ X $ uma variável aleatória discreta com função de massa de probabilidade tal e tal," o que queremos dizer?
+Isso realmente descreve uma variável aleatória?
+A próxima definição e proposição respondem a essa pergunta.
+
+\begin{definition}
+[Função de Massa de Probabilidade]
+Uma função $ f:\R \to [0,1] $ é uma \emph{função de massa de probabilidade} se o conjunto $ D $ dado por $ D = \{x:f(x)>0\} $ é contável e $ \sum_{x \in D} f(x) = 1 $.
+\end{definition}
+
+\begin{proposition}
+Seja $ f:\R\to[0,1] $ uma função de massa de probabilidade.
+Então existe um espaço de probabilidade $ (\Omega,\cF,\Pb) $ e uma variável aleatória discreta $ X $ tal que $ p_X(x) = f(x) $ para todo $ x \in \R $.
+\end{proposition}
+\begin{proof}
+Tome $ D = \{ x : g(x)> 0 \} $.
+Tome $ \Omega = \R $, $ \cF = \cB(\R) $ e
+$$ \Pb(B) = \sum_{x \in B \cap D} f(x). $$
+Finalmente, tome $ X(x)=x $.
+Então $ X $ é uma variável aleatória.
+Além disso,
+$$ \Pb_X(D^c) = \sum_{x \in D \cap D^c} f(x) = 0 ,$$
+porque a soma sobre um conjunto vazio sempre é igual a zero.
+Portanto, $ X $ é uma variável aleatória discreta.
+Vamos verificar que $ p_X = p $.
+
+Para $ x \in D $, temos
+$$
+p_X(x) = \Pb_X(\{x\}) = \Pb(\{x\}) = \sum_{z \in \{x\}\cap D}f(z) =
+\sum_{z \in \{x\}}f(z) = f(x)
+$$
+porque a soma de um único fator é igual a esse fator.
+
+Por outro lado, para $ x \in D^c $, temos $ f(x)=0 $ e
+$$
+p_X(x) =
+\sum_{z \ in \{x\}\cap D}f(z) =
+\sum_{z \in \emptyset} f(z) = 0 = f(x)
+.
+$$
+Portanto, $ p_X = p $, como reivindicado, e isso completa a prova da proposição.
+\end{proof}
+
+\subsection{As distribuições discretas mais comuns}
+
+\begin{definition}
+[Distibuição de Bernoulli]
+Dizemos que uma variável aleatória discreta~$X$ tem uma
+\emph{distribuição de Bernoulli} com parâmetro~$p \in [0,1]$,
+denotado
+$X \sim \Ber (p)$,
+se sua função de massa de probabilidade for
+\[
+p_X(x) =
+\begin{cases}
+p ,& x=1,
+\\
+1-p ,& x=0,
+\\
+0 ,& \text{caso contrário.}
+\end{cases}
+\]
+\end{definition}
+
+\begin{example}
+Seja~$\Omega = \{C,\text{T}\}$ (cara ou coroa para um lançamento de moeda) com~$\Pb(C) = p$ e~$\Pb(\text{T}) = 1-p$, e seja~$X(C) = 1$ e~$X(\text{T}) = 0$. Então,~$X \sim \Ber (p)$.
+\end{example}
+
+\begin{definition}
+[Distibuição Geométrica]
+Dizemos que uma variável aleatória discreta~$X$ tem uma
+\emph{distribuição geométrica} com parâmetro~$p \in (0,1]$,
+denotado
+$X \sim \Geom (p)$,
+se sua função de massa de probabilidade for
+\[
+p_X(x) =
+\begin{cases}
+p \cdot (1-p)^{x-1} ,& x\in\N,
+\\
+0 ,& \text{caso contrário.}
+\end{cases}
+\]
+\end{definition}
+
+Para ver que~$p_X$ é de fato uma função de massa de probabilidade, observe que
+\[\sum_{k=0}^\infty p_X(k) = p\cdot \sum_{k=1}^\infty (1-p)^{k-1} =p\cdot \sum_{\ell = 0}^\infty (1-p)^\ell = p\cdot \frac{1}{1-(1-p)}= p \cdot \frac{1}{p} = 1.\]
+
+Variáveis aleatórias com distribuição geométrica surgem na seguinte situação. Suponha que realizamos repetidamente ensaios, cada um dos quais pode ser um sucesso ou um fracasso. Assuma que os ensaios são independentes e a probabilidade de sucesso é a mesma em cada um deles, igual a~$p$. Então, o número de ensaios realizados até obtermos o primeiro sucesso segue uma distribuição geométrica com parâmetro~$p$.
+
+\begin{remark}
+Algumas referências menos comuns usam uma definição diferente para a distribuição geométrica com parâmetro~$p$: eles consideram a distribuição em~$\N_0$ (em vez de~$\N$) e a função de massa de probabilidade~$\tilde{p}_X(k) = p\cdot (1-p)^k$, para~$k \in \N_0$. Uma variável aleatória com função de massa de probabilidade~$\tilde{p}_X$ conta o número de ensaios \textit{fracassados} realizados antes de obter o primeiro sucesso. Portanto, no caso de um sucesso já ocorrer no primeiro ensaio, o número de ensaios fracassados é zero.
+\end{remark}
+
+\begin{example}
+Lançamos um dado repetidamente até obtermos um 6 pela primeira vez. Seja~$X$ o número total de vezes que lançamos o dado. Então,~$X \sim \Geom (\frac16)$.
+\end{example}
+
+\begin{definition}
+[Distribuição binomial]
+Dizemos que uma variável aleatória discreta~$X$ tem uma
+\emph{distribuição binomial} com parâmetros $ n\in\N_0 $ e $p \in [0,1]$,
+denotado
+$X \sim \Bin (n,p)$,
+se sua função de massa de probabilidade for
+\[
+p_X(x) =
+\begin{cases}
+\binom{n}{x} p^x (1-p)^{n-x} ,& x\in \{0,1,\dots,n\},
+\\
+0 ,& \text{caso contrário.}
+\end{cases}
+\]
+\end{definition}
+
+Observe que~$p_X$ é de fato uma função de massa de probabilidade, pois
+\[1 = (p+(1-p))^n = \sum_{k=0}^n \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}.\]
+
+\begin{example} 
+Lance um dado dez vezes e seja~$X$ o número de vezes que sai um 5 ou um 6. Então,~$X \sim \Bin (10,\tfrac13)$.
+\end{example}
+
+Lembrando que $ 0^0 = 1 $ e $ 0! = 1 $.
+
+\begin{definition}
+[Distribuição de Poisson]
+Dizemos que uma variável aleatória discreta~$X$ tem uma
+\emph{distribuição de Poisson} com parâmetro $ \lambda \geq 0 $,
+denotado
+por
+$X \sim \Poi (n,p)$,
+se sua função de massa de probabilidade for
+\[
+p_X(x) =
+\begin{cases}
+\frac{\e^{-\lambda}\lambda^x}{x!}
+,& x\in \N_0,
+\\
+0 ,& \text{caso contrário.}
+\end{cases}
+\]
+\end{definition}
+
+Para mostrar que~$p_X$ é de fato uma função de massa de probabilidade, calculamos
+\[\sum_{k=0}^\infty p_X(k) = \sum_{k=0}^\infty \frac{\lambda^k}{k!}\cdot \e ^{-\lambda} = \e ^{-\lambda}\cdot \sum_{k=0}^\infty \frac{\lambda^k}{k!} = \e ^{-\lambda} \cdot \e ^\lambda = 1.\]
+
+Variáveis aleatórias que contam ocorrências raras entre muitos ensaios (como: número de acidentes em uma estrada ao longo de um ano, número de erros de digitação em uma página de livro) normalmente seguem a distribuição de Poisson.
+Mais precisamente, uma variável aleatória de Poisson pode ser usada para aproximar uma Binomial$(n,p)$ quando $n$ é grande, $p$ é pequeno e $np= \lambda$ é fixo.
+De fato, se $X \sim \Bin (n,p)$ para
+$ p = \frac{\lambda}{n} $, então
+\begin{align}
+\Pb(X=k) &= { n \choose k} p^k (1-p)^{n-k} \\
+&= \frac{n!}{k!(n-k)!} \left( \frac{\lambda}{n} \right)^k\left(1-\frac{\lambda}{n} \right)^{n-k} \\
+&= \frac{\lambda^k}{k!}
+\,
+\frac{n(n-1) \cdots (n-k+1)}{n^k}
+\,
+\left(1-\frac{\lambda}{n} \right)^{n}
+\,
+\left(1-\frac{\lambda}{n} \right)^{-k} \\
+&\to \frac{\lambda^k}{k!}e^{-\lambda}, \quad \text{para } n \text{ grande}
+\end{align}
+onde a aproximação segue das seguintes aproximações para $n$ grande:
+\begin{equation}
+n(n-1)...(n-k+1)/n^k \to 1, \quad \left(1-\frac{\lambda}{n} \right)^{n} \to e^{-\lambda}, \quad \frac{\lambda}{n} \to 0 \,.
+\end{equation}
+
+\subsection*{Breve revisão de variáveis aleatórias}
+
+Variável aleatória:
+\[
+X : \Omega \to \R
+\]
+com a exigência de que $ \{\omega:X(\omega) \leq a\} \in \cF $ para todo $ a \in \R $.
+
+A \emph{distribuição} de $ X $ é $ \Pb_X : \cB \to \R $, dada por
+\[
+\Pb_X(B) = \Pb(\{\omega:X(\omega)\in B\})
+\]
+é uma medida de probabilidade em $ \R $, onde $ \cB $ é o espaço de eventos em $ \R $.
+
+Uma variável aleatória $ X $ é \emph{discreta} se existe um conjunto contável $ S $ tal que $ \Pb_X(S^c)=0 $.
+
+Para $ X $ discreto, definimos a \emph{função de massa de probabilidade de $ X $} como a função $ p_X : \R \to \R $ dada por
+\[
+p_X(x) = \Pb_X(\{x\}).
+\]
+e o \emph{suporte discreto de $ X $} como o conjunto $ \{x \in \R: p_X(x)>0\} $.
+
+Se $ X $ é discreto, então
+\[
+\Pb_X(B) = \sum_{x \in B \cap D_X} p_X(x)
+\]
+para todo $ B \in \cB $, onde $ D_X $ denota o suporte discreto de $ X $.
+
+Dizemos que uma função $ f:\R \to \R $ é uma \emph{função de massa de probabilidade} se $ f(x) \geq 0 $ para todo $ x\in\R $, o conjunto $ \{x\in\R:f(x)>0\} $ é contável e
+$$ \sum_{x:f(x)>0} f(x) = 1. $$
+Dada uma função de massa de probabilidade $ f $, é possível construir um espaço de probabilidade $ (\Omega,\cF,\Pb) $ e uma variável aleatória $ X $ tal que $ f $ seja a função de massa de probabilidade de $ X $.

@@ -1,0 +1,135 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\clearpage
+
+\appendix
+
+
+\section{Somas úteis}
+
+\begin{align*}
+&
+(a+b)^n = \sum_{j=0}^{n} \binom{n}{j} a^j b^{n-j}
+ &&
+a,b \in \R, n \in \N_0
+\\
+&
+\sum_{n=0}^\infty x^n = \frac{1}{1-x}
+ &&
+0 < x < 1
+\\
+&
+\sum_{n=0}^\infty n x^{n-1} = \frac{1}{(1-x)^2}
+ &&
+0 < x < 1
+\\
+&
+\sum_{n=0}^\infty n (n-1) x^{n-2} = \frac{2}{(1-x)^3}
+ &&
+0 < x < 1
+\\
+&
+\sum_{n=0}^\infty n (n-1) (n-2) x^{n-3} = \frac{3!}{(1-x)^4}
+ &&
+0 < x < 1
+\\
+&
+\sum_{k=0}^\infty \frac{x^k}{k!} = e^x
+ &&
+x \in \R
+\\
+&
+\sum_{k=1}^n k = \frac{n(n+1)}{2}
+ &&
+n \in \N
+\\
+&
+\sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}
+ &&
+n \in \N
+\end{align*}
+
+As cinco primeiras são:
+teorema binomial,
+série geométrica,
+derivada da série geométrica,
+segunda derivada da série geométrica,
+terceira derivada da série geométrica.
+Acontece que é legítimo diferenciar uma série da forma $ \sum_n a_n x^n $ termo a termo, mas não estamos preocupados com os detalhes de por que isso é verdade.
+
+A quinta é a chamada "série de Taylor" da função exponencial.
+Para verificar se a fórmula faz sentido, observe que ambos os lados resultam em $ 1 $ para $ x=0 $ e cada lado é igual à sua própria derivada.
+Esses dois fatos implicam que ambos os lados são iguais para todos os valores de $ x $, mas não estamos preocupados com os detalhes disso.
+
+As duas últimas fórmulas, uma vez escritas, podem ser provadas por indução (suponha que sejam corretas para um certo valor de $ n $, mostre que são corretas para $ n+1 $).
+Se você está curioso sobre como essas fórmulas surgiram, elas podem ser derivadas fazendo inicialmente um palpite educado de que devem ser representadas por polinômios um grau maior do que o termo somado e, em seguida, usando os dois ou três primeiros termos para escrever um sistema de equações para os coeficientes.
+
+\clearpage
+\section{Exponenciais superam polinômios}
+
+Para todo $ x \geq 0 $ e $ n \in \N $,
+\[
+e^x
+\geq
+1 + x + \frac{x^2}{2} + \frac{x^3}{3!} + \dots + \frac{x^n}{n!}
+\]
+\begin{proof}
+Para $ n=0 $, já sabemos que $ e^x \geq 1 $.
+Para $ n=1 $,
+\[
+e^x
+=
+1 + \int_0^x e^x \, \dd x
+\geq
+1 + \int_0^x 1 \, \dd x
+=
+1+x
+\]
+Para $ n=2 $,
+\[
+e^x
+=
+1 + \int_0^x e^x \, \dd x
+\geq
+1 + \int_0^x (1+x) \dd x
+=
+1+x+\tfrac{x^2}{2}
+\]
+Para $ n=3 $,
+\[
+e^x
+=
+1 + \int_0^x e^x \, \dd x
+\geq
+1 + \int_0^x (1+x+\tfrac{x^2}{2}) \dd x
+=
+1+x+\tfrac{x^2}{2}+\tfrac{x^3}{3!}
+.
+\]
+O padrão é claro.
+\end{proof}
+
+Isso implica que
+\[
+\frac{a_0 + a_1 x + \dots + a_n x^n}{e^{ax}}
+\]
+tende a $ 0 $ à medida que $ x \to +\infty $, para todo $ a>0 $.
+
+\begin{proof}
+De fato, como $ e^{ax} \geq \frac{a^{n+1}}{(n+1)!} x^{n+1} $, cada termo em
+\[
+\frac{a_0}{e^{ax}}
++
+\frac{a_1 x}{e^{ax}}
++ \dots +
+\frac{a_n x^n}{e^{ax}}
+\]
+está se aproximando de zero à medida que $ x $ aumenta.
+\end{proof}
+
+Isso é útil ao calcular integrais impróprias que incluem polinômios e funções exponenciais.
+

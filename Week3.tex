@@ -1,0 +1,284 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\clearpage
+\section{Probabilidade Condicional e Independência}
+
+\subsection{Probabilidade Condicional}
+
+\begin{example}
+Suponha que antes de lançar um dado justo, você faz uma aposta de uma libra que o resultado será $3$. Seu amigo vê o resultado antes de você e lhe diz que o dado mostrou um número par. Você continuaria com a aposta ou desistiria dela? E se você fosse informado de que o resultado é ímpar? Como essas informações parciais sobre o resultado mudam a probabilidade?
+
+Modelamos o espaço de probabilidade correspondente ao lançamento de um dado justo tomando 
+$\Omega = \{1,2,\dots,6\}$, $\cF$ como o conjunto de todos os subconjuntos e $\Pb$ como a probabilidade uniforme sobre ele. Então, o evento que nosso amigo nos diz que ocorreu é 
+\begin{align}
+B=\{2,4,6\}, &\quad\text{e sua probabilidade é} \qquad \Pb(B)= \frac{3}{6}=\frac{1}{2} >0 
+\end{align}
+O evento favorável para nós é 
+\[
+A=\{3\}\quad\text{e sua probabilidade é} \qquad \Pb(A)= \frac{1}{6}\,.
+\]
+Saber que o resultado é par pode ser interpretado como mudar o espaço amostral de $\Omega$ para $B$. Intuitivamente, assumiríamos que a probabilidade no novo espaço amostral permanece uniforme, mas a probabilidade de cada resultado muda de $\frac{1}{6}$ para $\frac{1}{3}$, pois agora existem apenas $3$ resultados possíveis. Dado que nosso resultado preferido, o $3$, não está no novo espaço amostral, esperaríamos que a probabilidade de obter $3$ seja $0$ e, portanto, faria sentido desistir da aposta. Se, por outro lado, nos dissessem que o resultado é ímpar, poderíamos reformular o espaço de probabilidade como um com espaço amostral $B^c=\{1,3,5\}$ e esperaríamos que a probabilidade de vencer a aposta fosse $\frac{1}{3}$, pois é um dos $3$ resultados possíveis.
+
+E se apostássemos em $\{2,3\}$? Então estaríamos olhando para a quantidade de maneiras pelas quais ainda podemos vencer, dividida pela quantidade de resultados possíveis. Portanto, de acordo com nossa intuição, esperaríamos que a probabilidade atualizada, dada que o evento $B$ ocorreu, fosse 
+\[ \bP_B(A) = \frac{|A\cap B|}{|B|} = \frac{(\frac{|A\cap B|}{|\Omega|})}{(\frac{|B|}{|\Omega|})}=\frac{\Pb(A\cap B)}{\Pb(B)}.\] 
+Mas isso é uma probabilidade bem definida?
+\end{example}
+
+\begin{proposition}
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade e $B \in \cF$ tal que $\Pb(B)>0$. Seja $\bP_B: \cF \rightarrow \R$ tal que
+\begin{equation}
+\bP_B(A) = \Pb(A|B) = \frac{\Pb(A \cap B)}{\Pb(B)} \,.
+\end{equation}
+Então, $\bP_B$ é uma medida de probabilidade.
+\end{proposition}
+
+\begin{proof}
+Precisamos verificar se todas as propriedades das medidas de probabilidade são satisfeitas.
+\begin{enumerate}
+[$(i)$]
+\item Primeiro, precisamos mostrar que $\bP_B$ está definido para todo $A\in\cF$ e assume valores em $[0,1]$, ou seja, $\bP_B$ é um mapeamento de $\cF$ para $[0,1]$, como deveria ser.
+\begin{itemize}
+    \item Seja $A\in\cF$. Assumimos que $B\in\cF$ e, portanto, $A\cap B\in\cF$, pois o espaço de eventos é fechado sob interseções. Portanto, $\Pb(A\cap B)$ está bem definido e, como $\Pb(B)>0$, sua razão $\bP_B(A) = \frac{\Pb(A\cap B)}{\Pb(B)}$ está bem definida.
+    \item $A\cap B \subseteq B$ e, portanto, $\Pb(A\cap B)\leq \Pb(B)$ (proposição ~\ref{prop_prob}). Segue que $\bP_B(A)\leq 1$. Da mesma forma, como $\Pb(A\cap B)>0$ e $\Pb(B)>0$, segue que $\bP_B(A)>0$. Portanto, $\bP_B(A)\in[0,1]$.
+\end{itemize}
+\item 
+\begin{equation}
+\bP_B(\Omega) = \frac{\Pb(\Omega \cap B)}{\Pb(B)} = \frac{\Pb(B)}{\Pb(B)} = 1 \,,
+\end{equation}
+conforme requerido.
+\item (aditividade contável) Seja $A_n\in \cF$ para todo $n\geq 1$, de modo que
+$A_n \cap A_m = \emptyset$ para todos $ n \neq m$ (eventos disjuntos). Então
+\begin{align}
+\bP_B\left(\bigcup_{n=1}^{\infty} A_n\right) &= 
+\frac{1}{\Pb(B)} \Pb\left(\left(\bigcup_{n=1}^{\infty} A_n \right) \cap B \right) \\
+&=\frac{1}{\Pb(B)} \Pb\left(\bigcup_{n=1}^{\infty} (A_n \cap B) \right) \quad \text{(**)}
+\end{align}
+\end{enumerate}
+Agora, como $A_n\in\cF$ e $B\in\cF$ para todos $n\geq 1$, segue que $A_n \cap B\in \cF$ para todos $n\geq 1$. Além disso, os eventos $A_n\cap B$ são disjuntos.  De fato, para $n \neq m$
+\begin{equation}
+(A_n \cap B) \cap (A_m \cap B) \subseteq A_n \cap A_m = \emptyset \,.
+\end{equation}
+Uma vez que $\Pb$ é uma medida de probabilidade, ela é aditiva contável, o que implica que
+\begin{equation}
+\text{(**)} = \quad \frac{1}{\Pb(B)} \sum_{n=1}^{\infty} \Pb(A_n \cap B) =
+\sum_{n=1}^{\infty}\frac{\Pb(A_n \cap B)}{\Pb(B)}
+= \sum_{n=1}^{\infty} \Pb(A_n|B) = \sum_{n=1}^{\infty} \bP_{B}(A_n) \,.
+\end{equation}
+\end{proof}
+
+\begin{definition}
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade e $B \in \cF$ tal que $\Pb(B)>0$. Para $A \in \cF$, a \emph{probabilidade condicional de $A$ dado $B$} é denotada por $\Pb(A|B)$ e é definida como
+\begin{equation}
+\Pb(A|B) = \frac{\Pb(A \cap B)}{\Pb(B)} \quad \text{(*)}
+\end{equation}
+\end{definition}
+
+
+\begin{exercise}
+Um experimento consiste em lançar uma moeda justa 7 vezes.
+\begin{itemize}[noitemsep]
+\item[(a)] Descreva o espaço de probabilidade associado a ele.
+\item[(b)] Seja $E$ o evento correspondente a obter um número primo de caras. Qual é $\Pb(E)$?
+\item[(c)] Seja $B$ o evento "Cara ocorre pelo menos 6 vezes". Qual é $\Pb(E|B)$?
+\end{itemize}
+\end{exercise}
+
+\begin{solution}
+~
+\begin{itemize}
+\item[(a)] $\Omega = \{(a_1, \dots, a_7): a_i \in \{H, T\}\} = S_{2, 7}(\{H, T\})$,
+$\cF$ é o conjunto das partes de $\Omega$ e $\Pb$ é a probabilidade uniforme, ou seja, $\Pb$ é tal que 
+\begin{equation}
+\forall \, A \in \cF \quad \Pb(A) = \frac{|A|}{|\Omega|}\,.
+\end{equation}
+Lembrando que $|\Omega| = |S_{2, 7}(\{H, T\})| = 2^7.$ 
+\item[(b)] Para $i=1,\dots,7$, seja 
+$A_i$ o evento "obtemos exatamente $i$ caras". Os elementos de $A_i$ podem ser caracterizados de forma única pela posição de H na sequência. Portanto, pelo princípio fundamental da contagem, $|A_i| = \binom{7}{i}$. Assim,
+\[
+\Pb(A_i) = \frac{1}{2^7} \binom{7}{i}
+\] 
+Agora, observe que $A_i \cap A_j = \emptyset$ para $i \neq j$ (nenhum resultado tem tanto $i$ quanto $j$ caras) e 
+\begin{equation}
+E = A_2 \cup A_3 \cup A_5 \cup A_7 \,.
+\end{equation}
+Então, pela aditividade finita 
+\begin{align}
+\Pb(E) &= \Pb(A_2)+\Pb(A_3)+\Pb(A_5)+\Pb(A_7) \\
+&= \binom{7}{2} \frac{1}{2^7} + \binom{7}{3} \frac{1}{2^7}
++ \binom{7}{5} \frac{1}{2^7} +\binom{7}{7} \frac{1}{2^7} = \frac{78}{128}\,.
+\end{align}
+\item[(c)] $B$ é o evento "H aparece pelo menos 6 vezes", então $B=A_6\cup A_7$. Observe que, 
+\begin{align}
+\Pb(B) &= \Pb(A_6)+\Pb(A_7) = \binom{7}{6} \frac{1}{2^7} + \binom{7}{7} \frac{1}{2^7} \\
+&= \frac{7!}{6!1!} \cdot \frac{1}{2^7} + \frac{7!}{6!0!} \cdot \frac{1}{2^7}
+= \frac{7+1}{2^7} = \frac{7+1}{2^7} =\frac{8}{2^7}= \frac{1}{2^4} >0 \,.
+\end{align}
+Agora, podemos calcular $\Pb(E|B)$. Pela definição,
+\begin{align}
+\Pb(E|B) &= \frac{\Pb(E \cap B)}{\Pb(B)} 
+\end{align}
+Como $E \cap B = (A_2 \cup A_3 \cup A_5 \cup A_7) \cap (A_6 \cup A_7) = A_7$, temos 
+\[
+ \Pb(E|B) = \frac{\Pb(A_7)}{\Pb(B)} = \frac{1/2^7}{1/2^4} = \frac{2^4}{2^7} = \frac{1}{8} \,.
+\]
+\end{itemize}
+\end{solution}
+
+\begin{example}
+\label{ex: total probabilities}
+    
+Um estudante compra 2 maçãs, 3 bananas e 5 cocos. Todos os dias o estudante escolhe uma fruta uniformemente ao acaso e a come. 
+
+O espaço amostral é o conjunto de todas as tríades que podem ser construídas com as frutas disponíveis, em que cada resultado corresponde à fruta comida em cada dia. Como no final dos três dias temos todas as informações, o espaço de eventos é o conjunto das partes do espaço amostral. Definimos os eventos $A_i=\{$o estudante come uma maçã no dia i$\}$, $B_i=\{$o estudante come uma banana no dia i$\}$ e $C_i=\{$o estudante come um coco no dia i$\}$.
+
+\begin{itemize}
+\item[(a)] Qual é a probabilidade de o estudante comer um coco no dia 1 e uma banana no dia 2? O evento 'o estudante come um coco no dia 1 {\bf e} uma banana no dia 2' corresponde ao evento $C_1\cap B_2$. Observe que a maneira como a informação sobre a probabilidade é codificada é por meio de probabilidades condicionais: a afirmação '{\bf todos os dias} o estudante escolhe uma fruta {\bf uniformemente ao acaso} e a come' pode ser interpretada como a probabilidade condicional de escolher qualquer uma das frutas restantes uniformemente ao acaso, então sabemos que
+\[ \Pb(B_2|C_1) = \frac{3}{9}.\]
+Segue da definição de probabilidade condicional que 
+\[ \Pb(C_1\cap B_2) = \Pb(B_2 | C_1) \Pb(C_1) = \frac{3}{9}\frac{5}{10} = \frac{1}{6}.
+\]
+Escrever a probabilidade de interseção de dois eventos como um produto de uma probabilidade condicional e uma probabilidade é chamado de 'regra da multiplicação' e pode ser estendido para interseções de mais de dois eventos. Por exemplo, consideremos a seguinte pergunta.
+\item[(b)] Qual é a probabilidade de no terceiro dia o estudante comer a última maçã? Como existem exatamente duas maçãs, isso significa que o estudante comerá a primeira maçã no dia 1 ou no dia 2. Portanto, se $A$ é o evento 'estudante come a última maçã no terceiro dia', podemos escrever
+\begin{equation}
+A= (A_1 \cap A_2^c \cap A_3) \cup (A_1^c \cap A_2 \cap A_3) \,.
+\end{equation}
+Observe que os eventos $A_1 \cap A_2^c \cap A_3$ e $A_1^c \cap A_2 \cap A_3$ são
+disjuntos, portanto 
+\begin{align}
+\Pb(A)&= \Pb(A_1 \cap A_2^c \cap A_3)+ \Pb(A_1^c \cap A_2 \cap A_3) \\
+&=\Pb(A_1)\Pb(A_2^c|A_1) \Pb(A_3|A_1 \cap A_2^c) + \Pb(A_1^c)\Pb(A_2|A_1) \Pb(A_3|A_1^c \cap A_2) \\
+&= \frac{2}{10}\cdot \frac{8}{9} \cdot \frac{1}{8}+\frac{8}{10}\cdot \frac{2}{9} \cdot\frac{1}{8} = \frac{1}{45}+\frac{1}{45}=\frac{2}{45} \,,
+\end{align}
+usando a regra da multiplicação duas vezes.
+\end{itemize}
+\end{example}
+
+\begin{proposition}
+[Regra da Multiplicação]
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade e $A_1, \dots, A_n \in \cF$ de modo que $\Pb(A_1 \cap \dots \cap A_{n-1})>0.$ Então,
+\begin{equation}
+\Pb(A_1 \cap \dots \cap A_n) = \Pb(A_1)\Pb(A_2|A_1)\Pb(A_3|A_1\cap A_2)
+\dots \Pb(A_n|A_1 \cap \dots \cap A_{n-1}) \,.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Observe que para $k=1,\dots,n-1$, $A_1 \cap \dots \cap A_k \supseteq A_1 \cap \dots \cap A_{n-1}.$ Portanto, pela Proposição ~\ref{prop_prob} e pela hipótese
+\begin{equation}
+\Pb(A_1 \cap A_2 \cap \dots \cap A_k) \geq \Pb(A_1 \cap \dots \cap A_{n-1}) >0 \,.
+\end{equation}
+que garante que todas as probabilidades condicionais no lado direito sejam bem definidas. O resultado segue de uma aplicação direta da definição de probabilidade condicional no lado direito:
+\begin{align}
+&\Pb(A_1) \Pb(A_2|A_1)\Pb(A_3|A_1 \cap A_2) \dots \Pb(A_n|A_1 \cap \dots \cap A_{n-1}) \\
+&=\Pb(A_1) \frac{\Pb(A_1 \cap A_2)}{\Pb(A_1)} \frac{\Pb(A_3 \cap A_1 \cap A_2)}{\Pb(A_1 \cap A_2)} \dots \frac{\Pb(A_1 \cap \dots \cap A_n)}{\Pb(A_1\cap \dots \cap A_{n-1})} \\
+&=\Pb(A_1 \cap \dots \cap A_n) \,.
+\qedhere
+\end{align}
+\end{proof}
+
+\subsection{Lei da Probabilidade Total}
+
+\begin{example}[\ref{ex: total probabilities} continuado]
+    Suponha que agora nos seja perguntado para calcular a probabilidade de o estudante comer um coco no dia 2. Para calcular a probabilidade, precisamos condicionar o que aconteceu no dia 1, percorrendo todas as opções possíveis. Neste caso, existem duas opções que afetam o cálculo da probabilidade condicional: se o estudante também comeu um coco no dia 1 (evento $C_1$) ou não (evento $C_1^c$). Portanto,
+    \[
+\Pb(C_2) = \Pb(C_2|C_1) \cdot \Pb (C_1) + \Pb(C_2|C_1^c) \cdot\Pb(C_1^c) = \frac{4}{9}\cdot\frac{5}{10}+\frac{5}{9}\cdot\frac{5}{10} = \frac{1}{2}.
+    \]
+    De onde vem esta fórmula? Nós escrevemos
+    \[ C_2 = (C_2\cap C_1)\cup (C_2\cap C_1^c). \]
+    Assim, a partir da aditividade finita, segue que
+    \[ \Pb(C_2) = \Pb(C_2\cap C_1) + \Pb(C_2\cap C_1^c).\]
+    Ao aplicar a regra da multiplicação às probabilidades condicionais acima, obtemos a fórmula que é um exemplo específico da {\it lei da probabilidade total}.
+\end{example}
+
+A lei da probabilidade total nos permite calcular a probabilidade de um evento, condicionando em todas as instâncias possíveis de um 'evento diferente', ou, de forma mais formal, em todos os conjuntos de uma partição do espaço amostral.
+
+\begin{definition}
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade. Seja $B_n\in\cF$ para todos $n=1,\dots,N\}$ (onde $N$ é finito ou infinito). Então, a coleção de todos os $B_n$, $\{B_n:n=1,\dots,N\}$, é chamada de \emph{partição} de $\Omega$ se 
+\begin{itemize}[noitemsep]
+\item $B_n \neq \emptyset \quad \forall \,\, n=1,\dots,N$.
+\item $B_n \cap B_m= \emptyset \qquad\forall n \neq m$
+\item $\bigcup_{n=1}^{N}B_n=\Omega$.
+ \end{itemize}
+\end{definition}
+
+Portanto, uma partição é uma coleção de eventos não vazios e disjuntos que abrange todo o espaço.
+
+\begin{proposition}
+[Lei da Probabilidade Total]
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade e $\{B_n:n=1,\dots,N\}$ com $N$ finito ou infinito, seja uma partição de $\Omega$ tal que $\Pb(B_n) >0, \quad \forall \,\, n=1,\dots,N$. Então, para todo $A \in \cF$
+\begin{equation}
+\Pb(A) = \sum_{n=1}^{N}\Pb(A|B_n)\Pb(B_n) \,.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Observe que, uma vez que $\{B_n: n=1,\dots,N\}$ forma uma partição de $\Omega$, temos
+\begin{equation}
+A = A \cap \Omega = A \cap \bigcup_{n=1}^{N}B_n = \bigcup_{n=1}^{N}(A \cap B_n) \,.
+\end{equation}
+Além disso, uma vez que os $B_n$'s são disjuntos, os conjuntos $\{A \cap B_n: n=1\dots N\}$ também são disjuntos, portanto, pela aditividade finita/contável, temos
+\begin{equation}
+\Pb(A) = \Pb\left(\bigcup_{n=1}^{N}{A \cap B_n}\right) = \sum_{n=1}^{N}\Pb(A \cap B_n) = \sum_{n=1}^{N}\Pb(A|B_n)\Pb(B_n) \,.
+\end{equation}
+Na última igualdade, usamos a definição de probabilidade condicional com a suposição de que $\Pb(B_n) >0 \quad \forall \,\, n=1,\dots,N$.
+\end{proof}
+
+\begin{example} \label{ex5.1}
+Um estudante enfrenta uma pergunta de múltipla escolha, com 4 opções. O estudante ou sabe a resposta ou escolhe uma das respostas de forma uniforme e aleatória. A probabilidade de o estudante saber a resposta é $\frac{2}{3}$. 
+\begin{itemize}
+    \item[(a)] O estudante deseja calcular a probabilidade de responder corretamente. Vamos começar definindo os eventos de interesse:
+\begin{align}
+A &= \{\text{o estudante responde corretamente}\} \\
+B &= \{\text{o estudante sabe a resposta}\}
+\end{align}
+As informações que temos sobre a probabilidade são que 'o estudante ou sabe a resposta (e, portanto, responde corretamente)' ou 'escolhe uma das respostas de forma uniforme e aleatória'. Isso pode ser expresso como $\Pb(A|B) = 1$ e $\Pb(A|B^c) = \frac{1}{4}$. Também nos foi dito que a probabilidade de o estudante saber a resposta é $\frac{2}{3}$. Portanto, $\Pb(B) = \frac{2}{3}$. Dadas essas informações, nos é pedido para encontrar $\Pb(A)$.
+
+Uma vez que $B$ e $B^c$ formam uma partição do espaço amostral, aplicando a lei da probabilidade total obtemos
+\[
+\Pb(A) = \Pb(A|B)\Pb(B)+\Pb(A|B^c)\Pb(B^c) = 1 \cdot \frac{2}{3}+\frac{1}{4}\cdot \frac{1}{3} = \frac{3}{4}.
+\]
+\end{itemize}
+\item[(b)] O professor gostaria de saber a probabilidade de o estudante saber a resposta se ele respondeu corretamente, ou seja, $\Pb(B|A)$. Como podemos usar as informações que temos para calcular isso? Escrevemos
+\[
+\Pb(B|A) = \frac{\Pb(A\cap B)}{\Pb(A)} = \frac{\Pb(A|B)\Pb(B)}{\Pb(A)} = \frac{2/3}{3/4} = \frac{8}{9}.
+\]
+Isso é um exemplo específico do que é conhecido como a fórmula de Bayes.
+\end{example}
+
+\subsection{Teorema de Bayes}
+
+\begin{theorem}[Teorema de Bayes]
+Seja $(\Omega,\cF,\Pb)$ um espaço de probabilidade e $\{B_n:n=1,\dots,N\}$, com $N$ finito ou infinito, seja uma partição de $\Omega$ tal que $\Pb(B_n) >0 \quad \forall \,\, n=1,\dots,N$. Então, para $A \in \cF$ tal que $\Pb(A)>0$
+\begin{equation}
+\Pb(B_n|A) = \frac{\Pb(A|B_n)\Pb(B_n)}{\sum_{j=1}^{N}\Pb(A|B_j)\Pb(B_j)} \quad \forall \,\, n=1,\dots,N \,.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Pela definição de probabilidade condicional e como $A$ é tal que $\Pb(A)>0$, então pela definição de probabilidade condicional e pela lei da probabilidade total:
+\begin{align}
+\Pb(B_n|A) = \frac{\Pb(B_n \cap A)}{\Pb(A)} &= \frac{\Pb(A|B_n)\Pb(B_n)}{\Pb(A)}=\frac{\Pb(A|B_n)\Pb(B_n)}{\sum_{j=1}^{N}\Pb(A|B_j)\Pb(B_j)} \,.
+\qedhere
+\end{align}
+\end{proof}
+
+\begin{example}[Falsos Positivos]
+Uma doença tem uma incidência de $1$ em $100$ na população. O teste diagnóstico disponível é tal que 
+\begin{itemize}[noitemsep]
+\item se você tem a doença, o teste é positivo com probabilidade $\frac{72}{100}$
+\item se você não tem a doença, o teste é positivo com probabilidade $\frac{5}{1000}$.
+\end{itemize}
+Uma pessoa recebe um resultado positivo. Qual é a probabilidade de ela realmente ter a doença?
+
+Os dois eventos de interesse são $D=\{$a pessoa tem a doença$\}$ e $P=\{$a pessoa tem um teste positivo$\}$. Estamos interessados em $\Pb(D|P)$. As informações que temos são $\Pb(D) = \frac{1}{100}$, $\Pb(P|D) = \frac{72}{100}$ e $\Pb(P|D^c) = \frac{5}{1000}$. Pelo Teorema de Bayes
+\begin{align}
+\Pb(D|P) &= \frac{\Pb(P|D)\Pb(D)}{\Pb(P|D)\Pb(D)+\Pb(P|D^c)\Pb(D^c)} \approx 0.59 \,.
+\end{align}
+\end{example}
+
+O Teorema de Bayes nos permite calcular a probabilidade condicional de um evento, dado outro, em termos das probabilidades condicionais inversas. É particularmente útil em Estatística, levando a uma área inteira chamada Estatística Bayesiana: enquanto na probabilidade, estamos interessados em calcular probabilidades dadas um 'modelo' (ou seja, informações suficientes que determinam as probabilidades), na estatística, estamos interessados em escolher um modelo, dadas as observações que fazemos. O Teorema de Bayes nos permite conectar os dois.
+

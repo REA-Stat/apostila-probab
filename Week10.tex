@@ -1,0 +1,529 @@
+
+% !TeX spellcheck = pt_BR
+% !TEX encoding = UTF-8 Unicode
+
+% Ver copyright.tex para direitos autorais e licença.
+
+\clearpage
+\section{Distribuições Conjuntas e Independência}
+
+\subsection{Função de Densidade Conjunta}
+
+Agora explicaremos o que significa para duas variáveis aleatórias seguirem uma distribuição conjunta contínua.
+
+\begin{definition}
+[Densidade Conjunta]
+Duas variáveis aleatórias~$X$ e~$Y$ definidas no mesmo espaço de probabilidade são chamadas de \emph{conjuntamente contínuas} com uma \emph{função de densidade conjunta} $ f_{X,Y}:\R^2\to\R_+ $
+se
+\[
+\Pb(a_1 \leq X \leq a_2,\; b_1 \leq  Y \leq  b_2)
+= \int_{a_1}^{a_2}
+\Big(
+\int_{b_1}^{b_2} f_{X,Y}(x,y)\;\dd y
+\Big)
+\dd x
+\]
+para todo $a_1 < a_2$ e~$b_1 < b_2$.
+\end{definition}
+
+As \emph{funções de densidade marginal} são dadas por:
+\[f_X(x) = \int_{-\infty}^\infty f_{X,Y}(x,y) \dd y\qquad \text{e}\qquad f_Y(y) = \int_{-\infty}^\infty f_{X,Y}(x,y) \dd x.\]
+Em resumo, densidades marginais são obtidas da densidade conjunta "integrando" a outra variável.
+
+\begin{example}
+Considere o quadrado $ Q = \{(x,y) \in \R^2:|x|+|y|<1\} $, e suponha que a função de densidade conjunta de $ X $ e $ Y $ seja $ f_{X,Y}(x,y) = \frac{1}{2} \I_Q(x,y) $.
+Podemos determinar a função de densidade marginal de $ X $ integrando:
+\[
+f_X(x) = \int_{-\infty}^{+\infty} \tfrac{1}{2} \I_Q(x,y) \, \dd y = (1-|x|) \I_{[-1,1]}(x).
+\]
+Se integrarmos em relação a $ x $, obtemos $ f_Y(y) = (1-|y|) \I_{[-1,1]}(y) $.
+\end{example}
+
+\subsection{Função de Distribuição Conjunta}
+
+\begin{definition}
+Sejam~$X,Y$ variáveis aleatórias.
+A \emph{função de distribuição conjunta de~$(X,Y)$} é a função~$F_{X,Y}:\R^2 \to [0,1]$ dada por
+\[
+F_{X,Y}(x,y) = \Pb(X \le x,\; Y \le y)
+\]
+para todo $ x, y \in \R $.
+\end{definition}
+
+Para variáveis discretas, essa definição se reduz a
+\[
+F_{X,Y}(x,y) =
+\sum_{s \leq x} \sum_{t \leq y} p_{X,Y}(s,t)
+\]
+para todo $ x,y\in\R $.
+Para variáveis aleatórias conjuntamente contínuas, a função de distribuição conjunta
+é dada por
+\[
+F_{X,Y}(x,y) = \int_{-\infty}^x \int_{-\infty}^y f_{X,Y}(s,t)\;\dd t\;\dd s
+.
+\]
+De qualquer forma, é possível recuperar a função de massa de probabilidade conjunta e a função de densidade de probabilidade conjunta a partir da função de distribuição conjunta, mas não entraremos em detalhes sobre isso.
+
+\subsection{Independência}
+
+\begin{definition}
+[Independência de Duas Variáveis Aleatórias]
+Dadas duas variáveis aleatórias $ X $ e $ Y $, dizemos que \emph{$ X $ e $ Y $ são independentes} se
+\[
+\Pb(X \in A, Y\in B)
+=
+\Pb(X \in A)
+\Pb(Y\in B)
+\]
+para todos os conjuntos $ A, B \in \cB $.
+\end{definition}
+Para variáveis aleatórias discretas, essa definição é equivalente a
+\[
+p_{X,Y}(x,y) = p_X(x) \cdot p_Y(y)
+\]
+para todos os valores $ x,y\in\R $, conforme explicado na Seção~\ref{sub:independencerv}.
+
+Surpreendentemente, a função de distribuição conjunta é capaz de capturar se duas variáveis aleatórias são independentes ou não.
+
+\begin{proposition}
+Duas variáveis aleatórias $ X $ e $ Y $ são independentes se e somente se
+\[
+F_{X,Y}(x,y)
+=
+F_{X}(x)
+F_{Y}(y)
+\]
+para todo $ x,y\in\R $.
+\end{proposition}
+\begin{proof}
+[Fragmento da prova]
+Para $ A = (a,b] $ e $ B= (c,d] $, expandimos para obter
+\begin{align}
+\MoveEqLeft
+\Pb(a<X\leq b, c<Y\leq d)
+=
+\Pb(a<X\leq b, Y \leq d)
+-
+\Pb(a<X\leq b, Y \leq c)
+\\
+&=
+\Pb(X\leq b, Y \leq d)
+-
+\Pb(X \leq a, Y \leq d)
+-
+\Pb(a<X\leq b, Y \leq c)
+\\
+&=
+F_{X,Y}(b,d)
+-
+F_{X,Y}(a,d)
+-
+[ F_{X,Y}(b,c) - F_{X,Y}(a,c) ]
+\\
+&=
+F_{X}(b)
+F_{Y}(d)
+-
+F_{X}(a)
+F_{Y}(d)
+-
+[
+F_{X}(b)
+F_{Y}(c)
+-
+F_{X}(a)
+F_{Y}(c)
+]
+\\
+&=
+[
+F_{X}(b)
+-
+F_{X}(a)
+]
+\cdot
+[
+F_{Y}(d)
+-
+F_{Y}(c)
+]
+\\
+&=
+\Pb(a<X\leq b)
+\Pb(c<Y\leq d)
+.
+\end{align}
+Portanto,
+$ \Pb(X \in A, Y\in B)
+=
+\Pb(X \in A)
+\Pb(Y\in B) $
+quando tanto $ A $ quanto $ B $ são compostos por uma união de intervalos finitos desse tipo (abertos à esquerda e fechados à direita).
+O caso de conjuntos mais gerais $ A $ e $ B $ requer ferramentas que atualmente não possuímos.
+\end{proof}
+
+Para variáveis aleatórias conjuntamente contínuas, a situação é um pouco mais complicada.
+Suponha que $ X $ e $ Y $ tenham $ f_X $ e $ f_Y $ como funções de densidade.
+Então, elas são independentes se e somente se forem conjuntamente contínuas com uma função de densidade conjunta dada por
+\[
+f_{X,Y}(x,y)
+=
+f_{X}(x)
+f_{Y}(y)
+\]
+para todo $ x,y\in\R $.
+No entanto, se nos for fornecida uma função de densidade conjunta $ f_{X,Y} $ e desejarmos mostrar que $ X $ e $ Y $ \emph{não} são independentes, não basta encontrar um único ponto $ (x,y) $ tal que
+$ f_{X,Y}(x,y) \ne f_{X}(x)f_{Y}(y) $.
+Precisamos verificar que $ f_{X,Y}(x,y) \ne f_{X}(x)f_{Y}(y) $ para todos os $ x \in [a,b] $ e todos os $ y \in [c,d] $ para alguns intervalos não degenerados $ [a,b] $ e $ [c,d] $.
+Isso ocorre porque, ao contrário da função de massa de probabilidade, as funções de densidade de probabilidade não são únicas, e podemos modificá-las em um único ponto, fazendo com que a identidade mostrada acima deixe de ser válida.
+
+\begin{theorem}
+Se $ X $ e $ Y $ são variáveis aleatórias independentes integráveis, então $ XY $ é integrável e
+\[
+\E[XY] = \E[X] \cdot \E[Y].
+\]
+Em particular, variáveis aleatórias independentes quadrado-integráveis são não correlacionadas.
+\end{theorem}
+
+Nós fornecemos uma prova assumindo que $ X $ e $ Y $ são discretas.
+Uma prova que funcione no caso geral requer ferramentas que atualmente não temos.
+Quanto à linearidade da esperança, ela se baseia no fato de que qualquer variável aleatória pode ser aproximada por variáveis aleatórias discretas, reduzindo o problema ao caso que já conhecemos.
+
+\begin{definition}
+[Independência par a par]
+Dizemos que uma coleção de variáveis aleatórias $ X_1, X_2, X_3, \dots $ é \emph{independente par a par} se $ X_j $ e $ X_k $ forem independentes para todo $ j \neq k $.
+\end{definition}
+
+\begin{definition}
+[Independência mútua]
+Dizemos que uma coleção de variáveis aleatórias discretas $ X_1, X_2, X_3, \dots $ é \emph{mutuamente independentes} se, para todo $ k $ e todo $ A_1, \dots, A_k \in \cB $, tivermos
+\[
+\Pb(X_1\in A_1,\dots,X_k\in A_k)
+=
+\Pb(X_1\in A_1)
+\cdots
+\Pb(X_k\in A_k)
+.
+\]
+\end{definition}
+
+Existem condições análogas para independência mútua quando as variáveis aleatórias são contínuas ou discretas, e também uma condição equivalente em termos de funções de distribuição cumulativa conjunta.
+Mas não entraremos em detalhes sobre isso.
+
+\subsection{Covariância e a lei das médias}
+
+Como mencionado na seção anterior, se $ X_1,\dots,X_n $ são variáveis aleatórias não correlacionadas, então
+\[
+\V(X_1+\dots+X_n)
+=
+\V(X_1)
++\dots+
+\V(X_n)
+.
+\]
+
+Usando isso e a desigualdade de Chebyshev, podemos novamente provar a lei das médias para qualquer sequência de variáveis aleatórias não correlacionadas com a mesma média $ \mu $ e a mesma variância $ \sigma^2 $, sem assumir que sejam discretas.
+A prova é idêntica à vista na Seção~\ref{sub:prooflln}.
+
+O Teorema do Limite Central também se aplica a qualquer sequência de variáveis aleatórias quadrado-integráveis mutuamente independentes com a mesma distribuição, sem assumir que sejam discretas.
+
+\clearpage
+\section{Somas de variáveis aleatórias independentes}
+
+Somas de variáveis aleatórias independentes surgem em muitos contextos diferentes.
+Dadas duas variáveis aleatórias independentes $ X $ e $ Y $, qual é a distribuição de $ X+Y $?
+
+Se $ X $ e $ Y $ são ambas discretas, $ X+Y $ é discreta e sua função de massa de probabilidade pode ser calculada usando a Lei da Probabilidade Total:
+\begin{align}
+p_{X+Y}(z)&=\sum_{x}\Pb(X=x,Y=z-x)=\sum_{x}\Pb(X=x)\Pb(Y=z-x) \\
+&= \sum_{x}p_{X}(x)p_{Y}(z-x).
+\end{align}
+
+\begin{example}
+\label{exem:somaBernoulli}
+Suponha que $X\sim \Binom(n,p)$ e $Y\sim \Binom(m,p)$.
+A função de massa de probabilidade de $ X+Y $ pode ser obtida da seguinte forma:
+\begin{align}
+p_{X+Y}(k)&=\sum_{j=0}^\infty\Pb(X=j)\Pb(Y=k-j) \\
+&= \sum_{j=0}^k \tbinom{n}{j}p^j(1-p)^{n-j}\tbinom{m}{k-j}p^{k-j}(1-p)^{m-k+j} \\
+&= p^{k}(1-p)^{m+n-k}\sum_{j=0}^k \tbinom{n}{j}\tbinom{m}{k-j} \\
+&= \tbinom{n+m}{k}p^{k}(1-p)^{m+n-k}.
+\end{align}
+\end{example}
+
+Quando as variáveis $ X $ e $ Y $ são independentes e têm densidades $ f_X $ e $ f_Y $, temos a relação análoga a seguir
+\[
+f_{X+Y}(z)= \int_{-\infty}^{+\infty} f_{X}(x)f_{Y}(z-x)\, \dd x
+.
+\]
+
+\begin{example}
+[Exponenciais e Gama]
+Sejam~$X$ e~$Y$ independentes, ambas com a distribuição Exponencial com parâmetro~$\lambda >0$, ou seja,
+\[f_X(x) = f_Y(x) =\begin{cases} \lambda \e ^{-\lambda x}&\text{se } x > 0;\\ 0&\text{caso contrário.} \end{cases}\]
+Seja~$Z := X+Y$.
+Queremos calcular
+\begin{align*}
+ f_Z(z) &= \int_{-\infty}^\infty f_X(x)\cdot f_Y(z-x)\;\dd x.
+ \end{align*}
+Agora, observe que o produto dentro da integral é igual a zero quando~$x < 0$ (pois~$f_X(x) = 0$ nesse caso) e quando~$x > z$ (pois~$f_Y(z-x)= 0$ nesse caso). A integral é então igual a
+\begin{align*}\int_0^z \lambda \e ^{-\lambda x}\cdot \lambda \e ^{-\lambda(z-x)}\;\dd x &= \lambda^2\cdot \int_0^z\e ^{-\lambda z} \;\dd x = \lambda^2\cdot z\cdot \e ^{-\lambda z}.\end{align*}
+A distribuição acima corresponde a uma distribuição Gama com parâmetros $ 2 $ e $ \lambda $.
+Em geral, $ Z $ tem distribuição Gama com parâmetros $ n $ e $ \lambda $ se a sua densidade for dada por $ f_Z(z) = \frac{\lambda^n}{(n-1)!}\cdot z^{n-1} \cdot \e ^{-\lambda x} $ para $ z \geq 0 $.
+\end{example}
+
+O caso em que $ X $ e $ Y $ são normais é tão importante que o apresentamos como uma proposição.
+
+\begin{proposition}
+Se $X_1\sim \No (\mu_1,\sigma_1^2)$ e $X_2\sim \No (\mu_2,\sigma_2^2)$ são independentes.
+Então $X_1 +X_2\sim \No (\mu_1 +\mu_2,\sigma_1^2 +\sigma_2^2)$.
+\end{proposition}
+\begin{proof}
+Como $X_1 - \mu_1 \sim \No (0,\sigma_1^2) $ e $X_2 - \mu_2 \sim \No (0,\sigma_2^2) $, podemos supor que $\mu_1=\mu_2=0$.
+Após manipulações algébricas longas e trabalhosas, é possível obter
+\begin{align}
+f_{X+Y}(z)= \frac{1}{2\pi\sigma_1\sigma_2}
+\int_{-\infty}^{+\infty}
+e^{-\frac{(z-x)^2}{2 \sigma_2^2}}
+e^{-\frac{x^2}{2 \sigma_1^2}}
+\, \dd x
+=
+\cdots
+=
+\tfrac{1}{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}}
+\cdot
+e^{-\frac{z^2}{2(\sigma_1^2 + \sigma_2^2) }}
+.
+\end{align}
+Portanto, $f_{X+Y}$ é a densidade correspondente à distribuição $\No (0,\sigma_1^2 + \sigma_2^2)$, que era o que queríamos mostrar.
+\end{proof}
+
+
+\clearpage
+\section{Momentos e funções geradoras de momentos}
+
+\begin{definition}
+Dada uma variável aleatória $ X $, definimos a \emph{função geradora de momentos de $ X $} como a função $ M_X $ dada por
+\[
+M_X(t) = \E[e^{tX}]
+\]
+para os valores de $ t $ para os quais $ e^{tX} $ é integrável.
+\end{definition}
+
+\begin{example}
+[Geométrica]
+Se $X\sim \Geom(p)$, então
+\begin{align*}
+M_{X}(t)
+&=
+\sum_{n=1}^{\infty} e^{tn} p (1-p)^{n-1}
+=
+\begin{cases}
+\frac{p}{e^{-t} + p-1}, & t < \ln \tfrac{1}{1-p},
+\\
++\infty, & t \geq \ln \tfrac{1}{1-p}.
+\end{cases}
+\qedhere
+\end{align*}
+\end{example}
+
+\begin{example}
+[Poisson]
+\label{exem:fgPoisson}
+Se $X\sim \Poisson(\lambda )$, então
+\begin{align*}
+M_{X}(t) &
+=
+\sum_{n=0}^{\infty} e^{tn} \frac{e^{-\lambda} \lambda^n}{n!}
+=
+e^{-\lambda} \sum_{n=0}^{\infty} \frac{(\lambda e^t)^n}{n!}
+=
+e^{-\lambda} e^{\lambda e^t}
+=
+e^{\lambda (e^{t}-1)}
+.
+\qedhere
+\end{align*}
+\end{example}
+
+\begin{example}
+[Normal]
+Seja~$X$ uma variável aleatória normal com parâmetros~$\mu$ e~$\sigma^2$, ou seja,
+\[f_X(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \cdot \e ^{-\frac{(x-\mu)^2}{2\sigma^2}},\quad x \in \R.\]
+A função geradora de momentos de~$X$ pode ser calculada da seguinte forma:
+\begin{align}
+ \nonumber M_X(t)&= \int_{-\infty}^\infty \e ^{tx}\cdot f_X(x)\;\dd x\\[.2cm]
+\nonumber &= \int_{-\infty}^\infty \e ^{tx}\cdot \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \e ^{-\frac{(x-\mu)^2}{2\sigma^2}}\;\dd x\\[.2cm]
+ &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \exp\left\{-\frac{1}{2\sigma^2}[(x-\mu)^2 - 2\sigma^2 t x]\right\}\;\dd x \label{eq_gauss}
+ \end{align}
+
+Agora, completamos o quadrado:
+\begin{align*}
+ (x-\mu)^2 - 2\sigma^2 t x &= x^2 - 2(\mu +\sigma^2 t)\cdot x + \mu^2 \\[.2cm]
+ &= x^2 - 2(\mu +\sigma^2 t)\cdot x +\mu^2 \;\pm (2\mu \sigma^2 t+ \sigma^4t^2 )\\[.2cm]
+ &= (x-\mu-\sigma^2 t)^2 - 2\mu \sigma^2 t- \sigma^4t^2 .
+\end{align*}
+Isso dá
+\[-\frac{1}{2\sigma^2}[(x-\mu)^2 - 2\sigma^2 t x] = -\frac{(x-\mu-\sigma^2 t)^2}{2\sigma^2} +t\mu+ \frac{\sigma^2t^2}{2}.\]
+A integral em~\eqref{eq_gauss} então se torna
+\[\exp\left\{t\mu + \frac{\sigma^2t^2}{2}\right\}\cdot \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \exp\left\{-\frac{(x-\mu-\sigma^2t^2)^2}{2\sigma^2}\}\right\} \;\dd x.\]
+Agora, observe que a função sendo integrada é a função de densidade de probabilidade de~$\Normal (\mu+\sigma^2 t,\;\sigma^2)$, então a integral é igual a~$1$. Em conclusão,
+\[M_X(t) = \exp\left\{t\mu + \frac{\sigma^2 t^2}{2}\right\},\quad t \in \R.\]
+\end{example}
+
+\begin{definition}
+[Momentos]
+Definimos o $ k $-ésimo momento de uma variável aleatória $ X $ como $ \E[X^k] $ se $ X^k $ for integrável.
+\end{definition}
+
+O nome "função geradora de momentos" vem do seguinte fato.
+\begin{proposition}
+Se $ M_X(t) $ é definido em $ (-a,a) $ para algum $ a>0 $, então $ X $ tem todos os momentos e eles são dados por
+\[
+\E[X^k]
+=
+M_X^{(k)}(0)
+,
+\]
+onde $ M_X^{(k)} $ denota a $ k $-ésima derivada da função $ M_X $.
+\end{proposition}
+
+Não temos as ferramentas para provar esta proposição, mas se estivermos dispostos a ser atrevidos, podemos fazer:
+\[
+\left. \tfrac{\dd^{k}}{\dd t^{k}}M_{X}(t)\right.
+=
+\left. \tfrac{\dd^{k}}{\dd t^{k}} \, \E [e^{tX}] \right.
+=
+\E \left[ \left. \tfrac{\dd^{k}}{\dd t^{k}} \, e^{tX} \right.
+\right]
+=
+\E [X^{k}e^{tX}]
+\]
+e, avaliando em $ t=0 $, obtemos a proposição.
+
+\begin{example}
+[Geométrica]
+Se $X\sim \Geom(p)$, então
+\begin{equation*}
+\E [X] = M_X'(0) = \tfrac{1}{p}
+,
+\
+\E [X^2] = M_X''(0) = \tfrac{2}{p^2} - \tfrac{1}{p}
+,
+\
+\V [X] = \E [X^2] - (\E [X])^2 = \tfrac{1-p}{p^{2}}
+.
+\qedhere
+\end{equation*}
+\end{example}
+
+\begin{example}
+[Poisson]
+Se $X\sim \Poisson(\lambda )$, então
+\begin{equation*}
+\E [X] = M_X'(0) = \lambda
+,
+\
+\E [X^2] = M_X''(0) = \lambda^2 + \lambda
+,
+\
+\V [X] = \E [X^2] - (\E [X])^2 = \lambda
+.
+\qedhere
+\end{equation*}
+\end{example}
+
+\begin{example}
+[Normal]
+Seja~$X \sim \Normal (\mu,\sigma^2)$. Vamos calcular sua média (ou seja, sua esperança) e variância.
+No exemplo anterior, provamos que~$M_X(t)$ está definido para todos~$t \in \R$, com
+\[M_X(t) = \exp\left\{\frac{t^2\sigma^2}{2} + \mu t\right\}.\]
+Em seguida, usamos o teorema acima para calcular
+\begin{align*}
+ \E[X] &=\left. \frac{\dd }{\dd t}M_X(t)\right\vert_{t=0} = \left[ (t\sigma^2 + \mu)\cdot \exp\left\{\frac{t^2 \sigma^2}{2}+\mu t\right\}\right]_{t=0} = \mu
+ \end{align*}
+e
+\begin{align*}
+ \E[X^2] &=\left. \frac{\dd ^2}{\dd ^2t}M_X(t)\right\vert_{t=0}
+= \cdots
+=
+\sigma^2 + \mu^2.
+ \end{align*}
+Portanto,
+\[\V (X) = \E[X^2] - (\E[X])^2 = \sigma^2 + \mu^2 - \mu^2 = \sigma^2.\]
+Esta é a razão pela qual~$X$ é dito ser uma variável aleatória normal com média~$\mu$ e variância~$\sigma^2$.
+\end{example}
+
+\begin{proposition}
+Para todos $a, b \in \R$,
+\[
+M_{aX+b}(t) = \e ^{tb}\cdot M_X(at)
+\]
+para todo $ t $ no qual as funções geradoras de momentos estão definidas.
+\end{proposition}
+
+\begin{proof}
+Nós calculamos
+\[
+M_{aX+b}(t) = \E[\e ^{t(aX+b)}] = \e ^{tb}\cdot \E[\e ^{t(aX)}] = \e ^{tb}\cdot M_X(at).
+\qedhere
+\]
+\end{proof}
+
+\begin{proposition}
+Quando $ X $ e $ Y $ são independentes,
+\[
+M_{X+Y}(t) = M_X(t) \cdot M_Y(t)
+\]
+para todo $ t $ no qual as funções geradoras de momentos estão definidas.
+\end{proposition}
+
+\begin{proof}
+Se~$X$ e~$Y$ são independentes, então~$\e ^{tX}$ e~$\e ^{tY}$ também são. Portanto,
+\[M_{X+Y}(t) = \E[\e ^{t(X+Y)}] = \E[\e ^{tX}\cdot \e ^{tY}] = \E[\e ^{tX}] \cdot \E[\e ^{tY}] = M_X(t)\cdot M_Y(t)
+.
+\qedhere
+\]
+\end{proof}
+
+\begin{example}
+[Soma de variáveis de Poisson independentes]
+Sejam $X\sim\Poisson(\lambda)$ e $Y\sim\Poisson(\mu)$ independentes.
+Então
+\[
+M_{X+Y}(t) = M_{X}(t) \cdot M_Y(t) = e^{\lambda(e^{t}-1)}e^{\mu(e^{t}-1)} = e^{(\lambda+\mu)(e^{t}-1)} = M_Z(t),
+\]
+onde $Z \sim \Poisson(\lambda+\mu)$.
+Isso implica que $X+Y \sim \Poisson(\lambda+\mu)$?
+\end{example}
+
+O exemplo acima nos faz pensar se conhecer a função geradora de momentos de uma variável aleatória nos diz qual é a distribuição da variável aleatória. E, de fato, este é o caso.
+
+\begin{theorem}
+[A função geradora de momentos determina a distribuição]
+Dadas duas variáveis aleatórias $X$ e $Y$, se existe $a>0$ tal que
+$M_X(t)$ e $M_Y(t)$ são finitas e coincidem para todo $t \in [-a,a]$, então $X$ e $Y$ têm a mesma distribuição.
+\end{theorem}
+
+Também omitimos a prova deste teorema, observando que ela requer ferramentas ainda mais difíceis de construir do que outras provas omitidas nestas notas.
+
+\begin{example}
+[Soma de variáveis de Poisson independentes]
+Se $X\sim\Poisson(\lambda)$ e $Y\sim\Poisson(\mu)$ são independentes, então $X+Y \sim \Poisson(\lambda+\mu)$.
+\end{example}
+
+\begin{example}
+[Soma de variáveis normais independentes]
+Sejam~$X$ e~$Y$ duas variáveis normais independentes, com médias~$\mu_X$ e~$\mu_Y$ e variâncias~$\sigma^2_X$ e~$\sigma^2_Y$, respectivamente. Também sejam~$a$ e~$b \in \R$ com~$a \ne 0$. Vamos determinar as distribuições de~$aX+b$ e de~$X+Y$. Na última aula, mostramos que
+\[M_X(t) = \exp\left\{\frac{t^2\sigma_X^2}{2} + t \mu_X \right\},\qquad M_Y(t) = \exp\left\{\frac{t^2\sigma_Y^2}{2} + t \mu_Y \right\}.\]
+Temos que
+\[M_{aX+b}(t) = \e ^{tb}\cdot M_X(at) = \e ^{tb}\cdot \exp\left\{ a\mu_X t + \frac{a^2\sigma_X^2t^2}{2}\right\} = \exp\left\{ (a\mu_X + b)t + \frac{a^2 \sigma_X^2 t^2}{2}\right\}. \]
+Portanto,~$aX+b$ tem a mesma função geradora de momentos que uma variável aleatória~$\Normal (a\mu+b,a^2\sigma^2)$.
+Já que esta função geradora de momentos é definida em uma vizinhança da origem (na verdade, em toda a reta real), concluímos que~$aX+b \sim \Normal (a\mu_X+b,a^2\sigma_X^2)$.
+
+Em seguida, como~$X$ e~$Y$ são independentes, temos
+\begin{align*}M_{X+Y}(t) = M_X(t)\cdot M_Y(t) &= \exp\left\{\mu_X t + \frac{\sigma_X^2 t^2}{2}\right\} \cdot \exp\left\{\mu_Y t + \frac{\sigma_Y^2 t^2}{2}\right\} \\[.2cm]
+&= \exp\left\{(\mu_X+ \mu_Y) t + \frac{(\sigma_X^2+ \sigma^2_Y) t^2}{2}\right\}.\end{align*}
+Isso mostra que~$X+Y$ tem a mesma função geradora de momentos que uma variável aleatória~$\Normal (\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
+Já que esta função geradora de momentos é definida em um intervalo aberto que contém zero, concluímos que~$X+Y \sim \Normal (\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
+\end{example}
