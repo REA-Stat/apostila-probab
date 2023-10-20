@@ -1,6 +1,8 @@
 # apostila-probab
 Apostila de Introdução à Probabilidade
 
+Para compilar, rodar o `pdflatex` 3 vezes
+
 Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
 
 This work is licensed under a
