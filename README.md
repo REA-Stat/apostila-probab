@@ -1,7 +1,19 @@
 # apostila-probab
 Apostila de Introdução à Probabilidade
 
-Para compilar, rodar o `pdflatex` 3 vezes
+Para compilar:
+
+    git clone https://github.com/REA-Stat/apostila-probab.git
+    cd apostila-probab
+    pdflatex "Introdução à Probabilidade.tex" 
+    pdflatex "Introdução à Probabilidade.tex" 
+    pdflatex "Introdução à Probabilidade.tex" 
+
+Requisitos:
+
+- TeXLive 2021 completo é suficiente
+
+---
 
 Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
 
