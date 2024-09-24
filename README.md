@@ -1,5 +1,4 @@
-# apostila-probab
-Apostila de Introdução à Probabilidade
+# Apostila de Introdução à Probabilidade
 
 Para compilar:
 
